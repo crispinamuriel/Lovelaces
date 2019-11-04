@@ -14,4 +14,13 @@ router.get('/', async (req, res, next) => {
   } catch (err) {
     next(err)
   }
-})
+});
+
+router.get('/:userId', async (req, res, next) => {
+  try {
+    const singleUser = await User.findById(req.params.userId)
+    res.json(singleUser)
+  } catch (error) {
+    next(error)
+  }
+});
