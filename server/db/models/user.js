@@ -3,6 +3,12 @@ const Sequelize = require('sequelize')
 const db = require('../db')
 
 const User = db.define('user', {
+  firstName: {
+    type: Sequelize.STRING
+  },
+  lastName: {
+    type: Sequelize.STRING
+  },
   email: {
     type: Sequelize.STRING,
     unique: true,
@@ -15,6 +21,12 @@ const User = db.define('user', {
     get() {
       return () => this.getDataValue('password')
     }
+  },
+  address: {
+    type: Sequelize.STRING
+  },
+  cart: {
+    type: Sequelize.ARRAY
   },
   salt: {
     type: Sequelize.STRING,
