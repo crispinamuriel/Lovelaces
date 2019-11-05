@@ -188,37 +188,42 @@ async function seed() {
       name: 'Vans Old Skool Pro',
       category: 1,
       imageUrl: 'https://m.media-amazon.com/images/I/71T1mXQC-uL.jpg',
-      description: 'Pay homage to the styles that came before while looking to the future with the Vans® Old Skool Pro shoe! Features a classic silhouette updated for enhanced performance.',
+      description:
+        'Pay homage to the styles that came before while looking to the future with the Vans® Old Skool Pro shoe! Features a classic silhouette updated for enhanced performance.',
       price: 64.95
     }),
-     Shoe.create({
+    Shoe.create({
       name: 'Blowfish Play',
       category: 1,
       imageUrl: 'https://m.media-amazon.com/images/I/71O2oRuQeEL.jpg',
-      description: 'Take your look old school with the distressed look of the Blowfish® Play slip-on sneaker! Pieced textile upper. Easy slip-on wear.',
+      description:
+        'Take your look old school with the distressed look of the Blowfish® Play slip-on sneaker! Pieced textile upper. Easy slip-on wear.',
       price: 39.99
     }),
-     Shoe.create({
+    Shoe.create({
       name: 'Arcopedico LS',
       category: 1,
       imageUrl: 'https://m.media-amazon.com/images/I/81ZCwc+ayuL.jpg',
-      description: 'Treat your feet to the Arcopedico® Vegan LS lace-up oxford. Features a knit upper for fashionable and long-lasting wear and lining contains the Sansmell™ deodorizing system which is antimicrobial.',
-      price:
+      description:
+        'Treat your feet to the Arcopedico® Vegan LS lace-up oxford. Features a knit upper for fashionable and long-lasting wear and lining contains the Sansmell™ deodorizing system which is antimicrobial.',
+      price: 50.01
     }),
-     Shoe.create({
+    Shoe.create({
       name: 'Converse Chuck Taylor® All Star® Frozen Collection',
       category: 1,
       imageUrl: 'https://m.media-amazon.com/images/I/718PeWZOfOL.jpg',
-      description: 'Bring some magic to your kicks with the Converse® Chuck Taylor All Star Hi - Disneys Frozen sneakers.',
+      description:
+        'Bring some magic to your kicks with the Converse® Chuck Taylor All Star Hi - Disneys Frozen sneakers.',
       price: 65
     }),
-     Shoe.create({
+    Shoe.create({
       name: 'Billabong Marina',
       category: 1,
       imageUrl: 'https://m.media-amazon.com/images/I/71it3MQJTzL.jpg',
-      description: 'Keep your chill with the stress-free style of the Billabong® Marina Sneaker!',
+      description:
+        'Keep your chill with the stress-free style of the Billabong® Marina Sneaker!',
       price: 45.95
-    }),
+    })
   ])
 
   console.log(`seeded ${users.length} users and ${shoes.length} shoes`)
