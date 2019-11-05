@@ -19,3 +19,24 @@ router.get('/:shoeId', async (req, res, next) => {
     next(error)
   }
 })
+
+router.get('/category/:id', async (req, res, next) => {
+  try {
+    const id = Number(req.params.id)
+
+    if (id === 0) {
+      console.log('in if statement')
+      const shoes = await Shoe.findAll()
+      res.json(shoes)
+    } else {
+      const shoes = await Shoe.findAll({
+        where: {
+          category: id
+        }
+      })
+      res.json(shoes)
+    }
+  } catch (error) {
+    next(error)
+  }
+})

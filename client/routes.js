@@ -6,7 +6,12 @@ import {
   Login,
   Signup,
   UserHome,
-  AllProducts,
+  AllShoes,
+  AllSneakers,
+  AllBoots,
+  AllFlipFlops,
+  AllHeels,
+  AllFlats,
   ErrorPage,
   Homepage
 } from './components'
@@ -29,13 +34,23 @@ class Routes extends Component {
         <Route exact path="/" component={Homepage} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
-        <Route path="/all-shoes" component={AllProducts} />
+        <Route path="/all-shoes" component={AllShoes} />
+        <Route path="/sneakers" component={AllSneakers} />
+        <Route path="/boots-booties" component={AllBoots} />
+        <Route path="/flipflops" component={AllFlipFlops} />
+        <Route path="/heels" component={AllHeels} />
+        <Route path="/flats" component={AllFlats} />
 
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
             <Route path="/home" component={UserHome} />
-            <Route path="/all-shoes" component={AllProducts} />
+            <Route path="/all-shoes" component={AllShoes} />
+            <Route path="/sneakers" component={AllSneakers} />
+            <Route path="/boots-booties" component={AllBoots} />
+            <Route path="/flipflops" component={AllFlipFlops} />
+            <Route path="/heels" component={AllHeels} />
+            <Route path="/flats" component={AllFlats} />
           </Switch>
         )}
 
