@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {User} = require('../db/models')
+const {User, Order} = require('../db/models')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
@@ -22,5 +22,20 @@ router.get('/:userId', async (req, res, next) => {
     res.json(singleUser)
   } catch (error) {
     next(error)
+  }
+})
+
+// route for getting all orders by customerId
+// cant be tested until orders
+router.get('/:userId/orders', async (req, res, next) => {
+  try {
+    const user = await User.findByPk(req.params.userId, {
+      attributes: ['id', 'email'],
+      include: {model: Order}
+    })
+
+    res.json(user)
+  } catch (err) {
+    next(err)
   }
 })
