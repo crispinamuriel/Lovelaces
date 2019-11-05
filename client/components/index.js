@@ -7,5 +7,12 @@ export {default as Navbar} from './navbar'
 export {default as UserHome} from './user-home'
 export {Login, Signup} from './auth-form'
 export {default as Homepage} from './homepage'
-export {default as AllProducts} from './all-products'
+export {
+  AllShoes,
+  AllSneakers,
+  AllBoots,
+  AllHeels,
+  AllFlipFlops,
+  AllFlats
+} from './shoes'
 export {default as ErrorPage} from './errorpage'
