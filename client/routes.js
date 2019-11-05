@@ -51,6 +51,7 @@ class Routes extends Component {
             <Route path="/flipflops" component={AllFlipFlops} />
             <Route path="/heels" component={AllHeels} />
             <Route path="/flats" component={AllFlats} />
+            <Route path="*" component={ErrorPage} />
           </Switch>
         )}
 
