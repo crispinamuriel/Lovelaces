@@ -10,3 +10,12 @@ router.get('/', async (req, res, next) => {
     next(error)
   }
 })
+
+router.get('/:shoeId', async (req, res, next) => {
+  try {
+    const singleShoe = await Shoe.findByPk(req.params.shoeId)
+    res.json(singleShoe)
+  } catch (error) {
+    next(error)
+  }
+})
