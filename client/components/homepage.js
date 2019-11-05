@@ -5,7 +5,7 @@ const Homepage = () => {
     <main>
       <div id="homepage">
         <h1>HELLO THIS IS THE HOMEPAGE</h1>
-        <img src="../public/Shoes.jpg" />
+        <img src="/Shoes.jpg" />
       </div>
     </main>
   )
