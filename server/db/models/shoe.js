@@ -5,7 +5,7 @@ const Shoe = db.define('shoe', {
   name: {
     type: Sequelize.STRING
   },
-  cateogory: {
+  category: {
     type: Sequelize.INTEGER
   },
   imageUrl: {
