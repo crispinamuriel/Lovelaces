@@ -3,7 +3,6 @@ import axios from 'axios'
 // ACTION TYPES
 const GOT_SHOES = 'GOT_SHOES'
 const GOT_CURRENT_SHOE = 'GOT_CURRENT_SHOE'
-
 // INITIAL STATE
 const initialState = {
   all: [],
