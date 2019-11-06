@@ -24,3 +24,20 @@ router.get('/:userId', async (req, res, next) => {
     next(err)
   }
 })
+
+router.post('/:userId', async (req, res, next) => {
+  try {
+    const [cart, created] = await Cart.findOrCreate({
+      where: {userId: req.params.userId},
+      defaults: req.body
+    })
+
+    if (!created) {
+      await cart.update(req.body)
+    }
+
+    res.json(cart)
+  } catch (err) {
+    next(err)
+  }
+})

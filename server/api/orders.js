@@ -2,7 +2,7 @@ const router = require('express').Router()
 const {Order, OrderItem} = require('../db/models')
 module.exports = router
 
-// Admin route for getting all orders
+// route for getting all orders
 router.get('/', async (req, res, next) => {
   try {
     const orders = await Order.findAll({})
