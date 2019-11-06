@@ -1,5 +1,11 @@
 body {
+  margin: 0;
   font-family: sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #545454;
+  background-color: #fff;
 }
 
 a {
@@ -18,4 +24,38 @@ nav a {
 form div {
   margin: 1em;
   display: inline-block;
+}
+
+h1 {
+  text-align: center;
+}
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.shoe-container {
+  display: grid;
+  grid-template-columns: 15vw 15vw 15vw 15vw 15vw;
+  grid-column-gap: 2vw;
+  grid-row-gap: 2vw;
+  justify-items: space-around;
+  justify-content: center;
+  align-content: flex-start;
+}
+
+.shoe-container img {
+  height: 150px;
+  width: 175px;
+}
+
+#shoe-layout {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#navbar {
+  text-align: center;
 }
