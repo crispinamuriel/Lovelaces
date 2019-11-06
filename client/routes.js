@@ -13,7 +13,8 @@ import {
   AllHeels,
   AllFlats,
   ErrorPage,
-  Homepage
+  Homepage,
+  Shoe
 } from './components'
 import {me} from './store'
 
@@ -34,12 +35,13 @@ class Routes extends Component {
         <Route exact path="/" component={Homepage} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
-        <Route path="/all-shoes" component={AllShoes} />
+        <Route exact path="/all-shoes" component={AllShoes} />
         <Route path="/sneakers" component={AllSneakers} />
         <Route path="/boots-booties" component={AllBoots} />
         <Route path="/flipflops" component={AllFlipFlops} />
         <Route path="/heels" component={AllHeels} />
         <Route path="/flats" component={AllFlats} />
+        <Route path="/all-shoes/:shoeId" component={Shoe} />
 
         {isLoggedIn && (
           <Switch>
@@ -51,6 +53,7 @@ class Routes extends Component {
             <Route path="/flipflops" component={AllFlipFlops} />
             <Route path="/heels" component={AllHeels} />
             <Route path="/flats" component={AllFlats} />
+            <Route path="/all-shoes/:shoeId" component={Shoe} />
             <Route path="*" component={ErrorPage} />
           </Switch>
         )}
