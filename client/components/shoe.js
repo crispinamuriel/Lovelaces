@@ -3,17 +3,13 @@ import {connect} from 'react-redux'
 import {getCurrentShoe} from '../store/shoe'
 
 class Shoe extends Component {
-  constructor(props) {
-    super(props)
-  }
-
   componentDidMount() {
     this.props.getCurrentShoe(this.props.match.params.shoeId)
   }
 
   render() {
     console.log(this.props.current)
-
+    console.log(this.props)
     return (
       <div id="shoeFullPage">
         <h1>{this.props.current.name}</h1>
@@ -36,6 +32,7 @@ class Shoe extends Component {
 }
 // quantity
 // size
+// add to cart
 
 const mapStateToProps = state => {
   return {
