@@ -9,12 +9,12 @@ class Shoes extends Component {
 
   render() {
     return (
-      <div>
+      <div className="shoe-container">
         {this.props.shoes.map(shoe => (
           <div key={shoe.id}>
             <h3>{shoe.name}</h3>
-            <h4>{shoe.price}</h4>
-            <img height="300" src={shoe.imageUrl} />
+            <h4>${shoe.price}</h4>
+            <img src={shoe.imageUrl} />
             <p>{shoe.description}</p>
           </div>
         ))}
