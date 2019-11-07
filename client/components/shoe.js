@@ -7,25 +7,27 @@ class Shoe extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      quantity: ''
+      quantity: '',
+      size: ''
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  handleSubmit() {
+  handleSubmit(event) {
     event.preventDefault()
+    console.log(event.target.quantity.value)
     this.setState({
       [event.target.name]: event.target.value
     })
     this.props.addToUserCart(
-      this.props.user,
-      this.state.quantity,
+      this.props.user.id,
+      Number(this.state.quantity),
       this.props.current.id
     )
   }
 
-  handleChange() {
+  handleChange(event) {
     this.setState({
       [event.target.name]: event.target.value
     })
@@ -64,7 +66,11 @@ class Shoe extends Component {
           <label>
             {' '}
             Quantity:
-            <select>
+            <select
+              name="quantity"
+              onChange={this.handleChange}
+              value={this.state.quantity}
+            >
               <option value="0">0</option>
               <option value="1">1</option>
               <option value="2">2</option>
@@ -77,7 +83,11 @@ class Shoe extends Component {
           <label>
             {' '}
             Size:
-            <select>
+            <select
+              name="size"
+              onChange={this.handleChange}
+              value={this.state.size}
+            >
               <option value="noSize">select size</option>
               <option value="6">6</option>
               <option value="7">7</option>
