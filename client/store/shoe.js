@@ -5,6 +5,9 @@ const GOT_SHOES = 'GOT_SHOES'
 const GOT_CATEGORY_SHOES = 'GOT_CATEGORY_SHOES'
 const GOT_CURRENT_SHOE = 'GOT_CURRENT_SHOE'
 
+// ACTION TYPE MISSING ROUTE
+// const GOT_NEW_CART_ITEM = 'GOT_NEW_CART_ITEM'
+
 // INITIAL STATE
 const initialState = {
   all: [],
@@ -14,6 +17,9 @@ const initialState = {
 // ACTION CREATORS
 const gotShoes = shoes => ({type: GOT_SHOES, shoes})
 const gotCurrentShoe = currentShoe => ({type: GOT_CURRENT_SHOE, currentShoe})
+
+// ACTION CREATOR MISSING ROUTE
+// const gotCurrentItem = currentItem => ({type: GOT_NEW_CART_ITEM, currentItem})
 
 // THUNK CREATORS
 export const getShoes = categoryId => async dispatch => {
@@ -33,6 +39,16 @@ export const getCurrentShoe = shoeId => async dispatch => {
     console.log(err)
   }
 }
+
+// THUNK FOR CURRENT CART ITEM, MISSING ROUTE (didnt touch the reducer, bc i dont wanna break it)
+// export const getCurrentOrderItem = (shoeId, size, quantity) => async dispatch =>{
+//   try {
+//     const {data} = await axios.get('/api/orders')
+//     dispatch(got)
+//   } catch (err) {
+//     console.log(err)
+//   }
+// }
 
 // REDUCER
 export default function(state = initialState, action) {
