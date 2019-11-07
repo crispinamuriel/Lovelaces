@@ -129,7 +129,8 @@ button {
   font-size: 14px;
   font-weight: bold;
   color: #fff;
-  background-color: #acd6ef; /*IE fallback*/
+  background-color: #acd6ef;
+  /*IE fallback*/
   background-image: -webkit-gradient(
     linear,
     left top,
@@ -149,6 +150,7 @@ button {
     inset 0 1px 0 rgba(255, 255, 255, 0.5);
   cursor: pointer;
 }
+
 button:hover {
   background-image: -webkit-gradient(
     linear,
@@ -164,6 +166,7 @@ button:hover {
   );
   background-image: linear-gradient(top left 90deg, #b6e2ff 0%, #6ec2e8 100%);
 }
+
 button:active {
   background-image: -webkit-gradient(
     linear,
@@ -203,4 +206,14 @@ button:active {
 
 #customBtn a:hover {
   color: blue;
+}
+
+#checkoutFullPage {
+  text-align: center;
+  position: relative;
+  width: 340px;
+  height: 440px;
+  top: 50%;
+  left: 50%;
+  margin-left: -170px;
 }
