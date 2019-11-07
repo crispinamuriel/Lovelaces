@@ -12,41 +12,12 @@ module.exports = router
 //   }
 // }
 
-//Route for getting all orders, not including carts
-router.get('/', async (req, res, next) => {
-  try {
-    const orders = await Order.findAll({
-      where: {
-        status: {
-          [Op.not]: 'In cart'
-        }
-      }
-    })
-    res.json(orders)
-  } catch (err) {
-    next(err)
-  }
-})
-
-//Route for getting single order, including order items
-router.get('/:orderId', async (req, res, next) => {
-  try {
-    const singleOrder = await Order.findByPk(req.params.orderId, {
-      include: {model: OrderItem}
-    })
-
-    res.json(singleOrder)
-  } catch (err) {
-    next(err)
-  }
-})
-
 //Route for getting all orders for a specific user, not including cart
 router.get('/user-orders/:userId', async (req, res, next) => {
   try {
     const userOrders = await Order.findAll({
       where: {userId: req.params.userId, status: {[Op.not]: 'In cart'}},
-      include: {model: OrderItem}
+      include: {model: OrderItem, include: {model: Shoe}}
     })
     res.json(userOrders)
   } catch (err) {
@@ -59,7 +30,7 @@ router.get('/user-cart/:userId', async (req, res, next) => {
   try {
     const userCart = await Order.findOne({
       where: {userId: req.params.userId, status: {[Op.eq]: 'In cart'}},
-      include: {model: OrderItem}
+      include: {model: OrderItem, include: {model: Shoe}}
     })
     res.json(userCart)
   } catch (err) {
@@ -97,7 +68,7 @@ router.post('/user-cart/:userId', async (req, res, next) => {
     }
 
     const updatedCart = await Order.findByPk(cart.id, {
-      include: {model: OrderItem}
+      include: {model: OrderItem, include: {model: Shoe}}
     })
 
     //If the cart wasn't created, update the total
@@ -147,7 +118,7 @@ router.delete('/user-cart/:userId', async (req, res, next) => {
 
     const updatedCart = await Order.findOne({
       where: {userId: req.params.userId, status: {[Op.eq]: 'In cart'}},
-      include: {model: OrderItem}
+      include: {model: OrderItem, include: {model: Shoe}}
     })
 
     //Send back the updated cart
@@ -161,8 +132,18 @@ router.delete('/user-cart/:userId', async (req, res, next) => {
 
 //Route for getting guest cart
 router.get('/guest-cart', (req, res, next) => {
+  // console.log('SHOW SESSION above try', req.session.cart)
   try {
-    res.json(req.session.cart)
+    if (!req.session.cart) {
+      req.session.cart = {
+        address: null,
+        status: 'In cart',
+        total: 0,
+        orderItems: []
+      }
+    }
+    // console.log('SHOW THE SESSION',req.session.cart)
+    res.send(req.session.cart)
   } catch (err) {
     next(err)
   }
@@ -225,6 +206,35 @@ router.delete('/guest-cart', async (req, res, next) => {
     cart.orderItems.splice(indexOfTargetOrderItem, 1)
 
     res.json(cart)
+  } catch (err) {
+    next(err)
+  }
+})
+
+// Route for getting all orders, not including carts
+router.get('/', async (req, res, next) => {
+  try {
+    const orders = await Order.findAll({
+      where: {
+        status: {
+          [Op.not]: 'In cart'
+        }
+      }
+    })
+    res.json(orders)
+  } catch (err) {
+    next(err)
+  }
+})
+
+//Route for getting single order, including order items
+router.get('/:orderId', async (req, res, next) => {
+  try {
+    const singleOrder = await Order.findByPk(req.params.orderId, {
+      include: {model: OrderItem, include: {model: Shoe}}
+    })
+
+    res.json(singleOrder)
   } catch (err) {
     next(err)
   }
