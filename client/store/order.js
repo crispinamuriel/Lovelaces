@@ -6,7 +6,7 @@ const ADDED_TO_CART = 'ADDED_TO_CART'
 const REMOVED_FROM_CART = 'REMOVED_FROM_CART'
 
 // INITIAL STATE
-const cart = {}
+const defaultCart = {}
 
 // ACTION CREATORS
 const gotCart = cart => ({type: GOT_CART, cart})
@@ -48,7 +48,7 @@ export const removeFromCart = (userId, shoeId) => async dispatch => {
 }
 
 // REDUCER
-export default function(state = cart, action) {
+export default function(state = defaultCart, action) {
   switch (action.type) {
     case GOT_CART:
       return action.cart
