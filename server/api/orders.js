@@ -177,17 +177,21 @@ router.post('/guest-cart', async (req, res, next) => {
 
     //If they already have a cart on session, do this
     if (cart) {
+      //Search for the shoe in the existing orderItems
       const indexOfTargetOrderItem = cart.orderItems.findIndex(
         orderItem => orderItem.shoeId === shoe.id
       )
+
+      //If the shoe is in the orderItems, update the quantity
       if (indexOfTargetOrderItem > -1) {
         cart.orderItems[indexOfTargetOrderItem].quantity += quantity
       } else {
+        //If not, add it to orderItems
         cart.orderItems = [...cart.orderItems, {quantity, shoeId: shoe.id}]
       }
       cart.total += shoe.price * quantity
     } else {
-      //If they
+      //If they don't have a cart, create one
       req.session.cart = {
         address: null,
         status: 'In cart',
@@ -196,7 +200,7 @@ router.post('/guest-cart', async (req, res, next) => {
       }
     }
 
-    res.json(req.session.cart)
+    res.json(cart)
   } catch (err) {
     next(err)
   }
@@ -204,9 +208,23 @@ router.post('/guest-cart', async (req, res, next) => {
 
 router.delete('/guest-cart', async (req, res, next) => {
   try {
-    const shoeId = req.body.shoeId
     const shoe = await Shoe.findByPk(req.body.shoeId)
     const cart = req.session.cart
+
+    //Find the index of the order item for the shoe
+    const indexOfTargetOrderItem = cart.orderItems.findIndex(
+      orderItem => orderItem.shoeId === shoe.id
+    )
+
+    const targetOrderItem = cart.orderItems[indexOfTargetOrderItem]
+
+    //Update the total
+    cart.total -= targetOrderItem.quantity * shoe.price
+
+    //Remove targetOrderItem from orderItems
+    cart.orderItems.splice(indexOfTargetOrderItem, 1)
+
+    res.json(cart)
   } catch (err) {
     next(err)
   }
