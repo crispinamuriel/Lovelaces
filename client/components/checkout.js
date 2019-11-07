@@ -47,6 +47,7 @@ class Checkout extends Component {
     return (
       <div id="checkoutFullPage">
         {console.log('hi')}
+        <h2>Checkout</h2>
         <form onSubmit={this.handleSubmit}>
           <label>
             First Name:

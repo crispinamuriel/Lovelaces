@@ -209,11 +209,11 @@ button:active {
 }
 
 #checkoutFullPage {
-  display: grid;
-  grid-template-columns: 15vw 15vw 15vw 15vw 15vw;
-  grid-column-gap: 2vw;
-  grid-row-gap: 2vw;
-  justify-items: space-around;
-  justify-content: center;
-  align-content: flex-start;
+  text-align: center;
+  position: relative;
+  width: 340px;
+  height: 440px;
+  top: 50%;
+  left: 50%;
+  margin-left: -170px;
 }
