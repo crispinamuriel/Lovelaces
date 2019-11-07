@@ -46,18 +46,8 @@ class Routes extends Component {
         <Route path="/checkout" component={Checkout} />
 
         {isLoggedIn && (
-          <Switch>
-            {/* Routes placed here are only available after logging in */}
-            <Route path="/home" component={UserHome} />
-            <Route path="/all-shoes" component={AllShoes} />
-            <Route path="/sneakers" component={AllSneakers} />
-            <Route path="/boots-booties" component={AllBoots} />
-            <Route path="/flipflops" component={AllFlipFlops} />
-            <Route path="/heels" component={AllHeels} />
-            <Route path="/flats" component={AllFlats} />
-            <Route path="/all-shoes/:shoeId" component={Shoe} />
-            <Route path="*" component={ErrorPage} />
-          </Switch>
+          /* Routes placed here are only available after logging in */
+          <Route path="/home" component={UserHome} />
         )}
 
         {/* Displays our Login component as a fallback */}
