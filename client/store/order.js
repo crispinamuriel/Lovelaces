@@ -10,7 +10,10 @@ const ADDED_TO_GUEST_CART = 'ADDED_TO_GUEST_CART'
 const REMOVED_FROM_GUEST_CART = 'REMOVED_FROM_GUEST_CART'
 
 // INITIAL STATE
-const defaultCart = {}
+const initialState = {
+  previousOrders: [],
+  cart: {}
+}
 
 // ACTION CREATORS
 const gotUserCart = cart => ({type: GOT_USER_CART, cart})
@@ -33,11 +36,8 @@ export const getUserCart = userId => async dispatch => {
 
 export const addToUserCart = (userId, quantity, shoeId) => async dispatch => {
   try {
-    const {data} = await axios.post(`/api/orders/user-cart/${userId}`, {
-      quantity,
-      shoeId
-    })
-
+    const object = {quantity, shoeId}
+    const {data} = await axios.post(`/api/orders/user-cart/${userId}`, object)
     dispatch(addedToUserCart(data))
   } catch (err) {
     console.log(err)
@@ -89,14 +89,14 @@ export const removeFromGuestCart = shoeId => async dispatch => {
 }
 
 // REDUCER
-export default function(state = defaultCart, action) {
+export default function(state = initialState, action) {
   switch (action.type) {
     case GOT_USER_CART:
-      return action.cart
+      return {...state, cart: action.cart}
     case ADDED_TO_USER_CART:
-      return action.cart
+      return {...state, cart: action.cart}
     case REMOVED_FROM_USER_CART:
-      return action.cart
+      return {...state, cart: action.cart}
     default:
       return state
   }

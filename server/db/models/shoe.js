@@ -20,6 +20,9 @@ const Shoe = db.define('shoe', {
   },
   price: {
     type: Sequelize.INTEGER
+  },
+  inventory: {
+    type: Sequelize.INTEGER
   }
 })
 
