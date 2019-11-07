@@ -43,7 +43,7 @@ class Routes extends Component {
         <Route path="/heels" component={AllHeels} />
         <Route path="/flats" component={AllFlats} />
         <Route path="/all-shoes/:shoeId" component={Shoe} />
-        <Route path="/checkout/" component={Checkout} />
+        <Route path="/checkout" component={Checkout} />
 
         {isLoggedIn && (
           <Switch>
