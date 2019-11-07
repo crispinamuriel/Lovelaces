@@ -12,35 +12,6 @@ module.exports = router
 //   }
 // }
 
-//Route for getting all orders, not including carts
-router.get('/', async (req, res, next) => {
-  try {
-    const orders = await Order.findAll({
-      where: {
-        status: {
-          [Op.not]: 'In cart'
-        }
-      }
-    })
-    res.json(orders)
-  } catch (err) {
-    next(err)
-  }
-})
-
-//Route for getting single order, including order items
-router.get('/:orderId', async (req, res, next) => {
-  try {
-    const singleOrder = await Order.findByPk(req.params.orderId, {
-      include: {model: OrderItem}
-    })
-
-    res.json(singleOrder)
-  } catch (err) {
-    next(err)
-  }
-})
-
 //Route for getting all orders for a specific user, not including cart
 router.get('/user-orders/:userId', async (req, res, next) => {
   try {
@@ -75,7 +46,7 @@ router.post('/user-cart/:userId', async (req, res, next) => {
 
     //Check if the cart exists. If it doesn't, create the cart on the orders table
     const [cart, created] = await Order.findOrCreate({
-      where: {userId: req.params.userId, status: {[Op.eq]: 'In cart'}},
+      where: {userId: req.user.id, status: {[Op.eq]: 'In cart'}},
       defaults: {
         userId: req.params.userId,
         status: 'In cart',
@@ -225,6 +196,35 @@ router.delete('/guest-cart', async (req, res, next) => {
     cart.orderItems.splice(indexOfTargetOrderItem, 1)
 
     res.json(cart)
+  } catch (err) {
+    next(err)
+  }
+})
+
+//Route for getting all orders, not including carts
+router.get('/', async (req, res, next) => {
+  try {
+    const orders = await Order.findAll({
+      where: {
+        status: {
+          [Op.not]: 'In cart'
+        }
+      }
+    })
+    res.json(orders)
+  } catch (err) {
+    next(err)
+  }
+})
+
+//Route for getting single order, including order items
+router.get('/:orderId', async (req, res, next) => {
+  try {
+    const singleOrder = await Order.findByPk(req.params.orderId, {
+      include: {model: OrderItem}
+    })
+
+    res.json(singleOrder)
   } catch (err) {
     next(err)
   }

@@ -60,6 +60,15 @@ h1 {
   width: 175px;
 }
 
+.one-shoe-container {
+  display: grid;
+}
+
+.shoe-img {
+  height: 400px;
+  width: 425px;
+}
+
 #container {
   position: relative;
   width: 340px;

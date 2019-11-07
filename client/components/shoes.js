@@ -15,7 +15,6 @@ class Shoes extends Component {
             <h3>{shoe.name}</h3>
             <h4>${shoe.price}</h4>
             <img src={shoe.imageUrl} />
-            <p>{shoe.description}</p>
           </div>
         ))}
       </div>
