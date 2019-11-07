@@ -2,21 +2,27 @@
 
 const {expect} = require('chai')
 const request = require('supertest')
-const db = require('../db')
-const app = require('../index')
+
+const db = require('../../db')
+const app = require('../../index')
+
 const User = db.model('user')
 
 describe('User routes', () => {
-  beforeEach(() => {
+  before(() => {
     return db.sync({force: true})
   })
 
   describe('/api/users/', () => {
     const codysEmail = 'cody@puppybook.com'
+    const codyFirstName = 'Cody'
+    const codyLastName = 'daPug'
 
     beforeEach(() => {
       return User.create({
-        email: codysEmail
+        email: codysEmail,
+        firstName: codyFirstName,
+        lastName: codyLastName
       })
     })
 
