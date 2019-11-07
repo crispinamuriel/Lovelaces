@@ -1,6 +1,6 @@
 # LoveLaces
 
-LoveLaces is full-stack e-commerce web application for selling women's shoes. LoveLaces can handle both logged in and guest users, manage their carts, and check out orders. It keeps records of users, products, and past orders using a Postgres database.
+LoveLaces is full-stack e-commerce web application for selling shoes. LoveLaces can handle both logged in and guest users, manage their carts, and check out orders. It keeps records of users, products, and past orders using a Postgres database.
 
 Visit [LoveLaces](https://lovelaces.herokuapp.com) to check it out!
 
