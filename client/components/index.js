@@ -16,4 +16,5 @@ export {
   AllFlats
 } from './shoes'
 export {default as ErrorPage} from './errorpage'
+export {default as Checkout} from './checkout'
 export {default as Shoe} from './shoe'
