@@ -10,7 +10,9 @@ const REMOVE_USER = 'REMOVE_USER'
 /**
  * INITIAL STATE
  */
-const defaultUser = {}
+const defaultUser = {
+  isLoggedIn: false
+}
 
 /**
  * ACTION CREATORS
@@ -50,7 +52,7 @@ export const auth = (
   }
 
   try {
-    dispatch(getUser(res.data))
+    dispatch(getUser({...res.data, isLoggedIn: true}))
     history.push('/home')
   } catch (dispatchOrHistoryErr) {
     console.error(dispatchOrHistoryErr)
