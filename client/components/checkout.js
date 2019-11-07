@@ -49,14 +49,45 @@ class Checkout extends Component {
         {console.log('hi')}
         <form onSubmit={this.handleSubmit}>
           <label>
-            Name:
+            First Name:
             <input
               type="text"
               value={this.state.value}
               onChange={this.handleChange}
             />
           </label>
-          <input type="submit" value="Submit" />
+          <label>
+            Last Name:
+            <input
+              type="text"
+              value={this.state.value}
+              onChange={this.handleChange}
+            />
+          </label>
+          <label>
+            Shipping Address:
+            <input
+              type="text"
+              value={this.state.value}
+              onChange={this.handleChange}
+            />
+          </label>
+          <label>
+            Credit Card Number:
+            <input
+              type="text"
+              value={this.state.value}
+              onChange={this.handleChange}
+            />
+          </label>
+          <label>
+            Billing Address:
+            <input
+              type="text"
+              value={this.state.value}
+              onChange={this.handleChange}
+            />
+          </label>
           <button type="submit">Checkout</button>
         </form>
       </div>

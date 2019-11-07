@@ -209,5 +209,11 @@ button:active {
 }
 
 #checkoutFullPage {
-  display: flex;
+  display: grid;
+  grid-template-columns: 15vw 15vw 15vw 15vw 15vw;
+  grid-column-gap: 2vw;
+  grid-row-gap: 2vw;
+  justify-items: space-around;
+  justify-content: center;
+  align-content: flex-start;
 }
