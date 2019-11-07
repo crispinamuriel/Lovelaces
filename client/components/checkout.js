@@ -13,6 +13,7 @@ class Checkout extends Component {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
   handleSubmit() {
+    event.preventDefault()
     // cart function
     // Dont need to reset state, redirect to a different page
   }
@@ -45,42 +46,19 @@ class Checkout extends Component {
 
     return (
       <div id="checkoutFullPage">
-        {/* <h1>{name}</h1>
-        <p>Product description:{description}</p>
-        <p>checkout type: {categories[category]}</p>
-        <p>Price: {price} </p> */}
-
+        {console.log('hi')}
         <form onSubmit={this.handleSubmit}>
           <label>
-            {' '}
-            Quantity:
-            <select>
-              <option value="0">0</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-            </select>
+            Name:
+            <input
+              type="text"
+              value={this.state.value}
+              onChange={this.handleChange}
+            />
           </label>
-
-          <label>
-            {' '}
-            Size:
-            <select>
-              <option value="noSize">select size</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
-            </select>
-          </label>
-
+          <input type="submit" value="Submit" />
           <button type="submit">Checkout</button>
         </form>
-
-        {/* <img src={imageUrl} /> */}
       </div>
     )
   }
@@ -100,5 +78,5 @@ const mapDispatchToProps = dispatch => {
     //getCurrentCart: id => dispatch(getCurrentCart(id))
   }
 }
-
-export default connect(mapStateToProps, mapDispatchToProps)(Checkout)
+export default Checkout
+// export default connect(mapStateToProps, mapDispatchToProps)(Checkout)
