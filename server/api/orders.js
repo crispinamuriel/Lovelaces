@@ -158,3 +158,56 @@ router.delete('/user-cart/:userId', async (req, res, next) => {
 })
 
 //Route for updating quantities for an item in cart
+
+//Route for getting guest cart
+router.get('/guest-cart', (req, res, next) => {
+  try {
+    res.json(req.session.cart)
+  } catch (err) {
+    next(err)
+  }
+})
+
+//Route for adding an item to guest cart
+router.post('/guest-cart', async (req, res, next) => {
+  try {
+    const quantity = req.body.quantity
+    const shoe = await Shoe.findByPk(req.body.shoeId)
+    const cart = req.session.cart
+
+    //If they already have a cart on session, do this
+    if (cart) {
+      const indexOfTargetOrderItem = cart.orderItems.findIndex(
+        orderItem => orderItem.shoeId === shoe.id
+      )
+      if (indexOfTargetOrderItem > -1) {
+        cart.orderItems[indexOfTargetOrderItem].quantity += quantity
+      } else {
+        cart.orderItems = [...cart.orderItems, {quantity, shoeId: shoe.id}]
+      }
+      cart.total += shoe.price * quantity
+    } else {
+      //If they
+      req.session.cart = {
+        address: null,
+        status: 'In cart',
+        total: shoe.price * quantity,
+        orderItems: [{quantity, shoeId: shoe.id}]
+      }
+    }
+
+    res.json(req.session.cart)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.delete('/guest-cart', async (req, res, next) => {
+  try {
+    const shoeId = req.body.shoeId
+    const shoe = await Shoe.findByPk(req.body.shoeId)
+    const cart = req.session.cart
+  } catch (err) {
+    next(err)
+  }
+})
