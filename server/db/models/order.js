@@ -6,11 +6,11 @@ const Order = db.define('order', {
   status: {
     type: Sequelize.STRING,
     validate: {
-      isIn: [['Received', 'In progress', 'Complete', null]]
+      isIn: [['In cart', 'Received', 'In progress', 'Complete', null]]
     }
   },
   total: {
-    type: Sequelize.DECIMAL(10, 2)
+    type: Sequelize.INTEGER
   }
 })
 

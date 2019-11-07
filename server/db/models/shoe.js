@@ -19,7 +19,7 @@ const Shoe = db.define('shoe', {
     type: Sequelize.TEXT
   },
   price: {
-    type: Sequelize.DECIMAL(10, 2)
+    type: Sequelize.INTEGER
   }
 })
 
