@@ -88,7 +88,7 @@ async function seed() {
         'https://n.nordstrommedia.com/id/sr3/56a9abf9-1f8b-4eb0-b28a-996ce60241f0.jpeg?crop=pad&pad_color=FFF&format=jpeg&trim=color&trimcolor=FFF&w=780&h=838&dpr=2',
       description:
         'Black sock booties. Textured rib-knit upper. 1.5 inch block heels',
-      price: 39.99
+      price: 3999
     }),
     Shoe.create({
       name: 'Half-calf Americano',
@@ -225,45 +225,32 @@ async function seed() {
       price: 4595
     })
   ])
+
   const orders = await Promise.all([
     Order.create({
       userId: 1,
-      status: 'In cart',
-      total: 19999
+      status: 'In cart'
+      // total: 19999
     }),
     Order.create({
       userId: 2,
-      status: 'Complete',
-      total: 9999
+      status: 'Complete'
+      // total: 9999
     })
   ])
-  const orderItems = await Promise.all([
-    OrderItem.create({
-      orderId: 1,
-      shoeId: 1,
-      quantity: 2
-    }),
-    OrderItem.create({
-      orderId: 1,
-      shoeId: 2,
-      quantity: 1
-    }),
-    OrderItem.create({
-      orderId: 1,
-      shoeId: 3,
-      quantity: 1
-    }),
-    OrderItem.create({
-      orderId: 2,
-      shoeId: 3,
-      quantity: 1
-    })
-  ])
+
+  const orderOne = orders[0]
+  const orderTwo = orders[1]
+
+  orderOne.addShoe(shoes[0], {through: {quantity: 2}})
+  orderOne.addShoe(shoes[1], {through: {quantity: 1}})
+  orderOne.addShoe(shoes[2], {through: {quantity: 5}})
+  orderTwo.addShoe(shoes[3], {through: {quantity: 1}})
 
   console.log(
     `seeded ${users.length} users, ${shoes.length} shoes, ${
       orders.length
-    } orders, and ${orderItems.length} orderItems`
+    } orders`
   )
   console.log(`seeded successfully`)
 }
@@ -278,11 +265,12 @@ async function runSeed() {
   } catch (err) {
     console.error(err)
     process.exitCode = 1
-  } finally {
-    console.log('closing db connection')
-    await db.close()
-    console.log('db connection closed')
   }
+  // finally {
+  //   console.log('closing db connection')
+  //   await db.close()
+  //   console.log('db connection closed')
+  // }
 }
 
 // Execute the `seed` function, IF we ran this module directly (`node seed`).

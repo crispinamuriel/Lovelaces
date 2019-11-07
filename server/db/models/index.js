@@ -10,14 +10,17 @@ const OrderItem = require('./orderItem')
  *    BlogPost.belongsTo(User)
  */
 
-//Order associations
 User.hasMany(Order)
 Order.belongsTo(User)
 
-Order.hasMany(OrderItem)
+Order.belongsToMany(Shoe, {through: OrderItem})
+Shoe.belongsToMany(Order, {through: OrderItem})
+
 OrderItem.belongsTo(Order)
+Order.hasMany(OrderItem)
 
 OrderItem.belongsTo(Shoe)
+Shoe.hasMany(OrderItem)
 
 /**
  * We'll export all of our models here, so that any time a module needs a model,
