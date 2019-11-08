@@ -18,7 +18,6 @@ class Shoes extends Component {
             </Link>
             <h4>${shoe.price / 100}</h4>
             <img src={shoe.imageUrl} />
-            <p>{shoe.description}</p>
           </div>
         ))}
       </div>

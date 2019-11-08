@@ -46,7 +46,7 @@ router.post('/user-cart/:userId', async (req, res, next) => {
 
     //Check if the cart exists. If it doesn't, create the cart on the orders table
     const [cart, created] = await Order.findOrCreate({
-      where: {userId: req.params.userId, status: {[Op.eq]: 'In cart'}},
+      where: {userId: req.user.id, status: {[Op.eq]: 'In cart'}},
       defaults: {
         userId: req.params.userId,
         status: 'In cart',
@@ -168,7 +168,10 @@ router.post('/guest-cart', async (req, res, next) => {
         cart.orderItems[indexOfTargetOrderItem].quantity += quantity
       } else {
         //If not, add it to orderItems
-        cart.orderItems = [...cart.orderItems, {quantity, shoeId: shoe.id}]
+        cart.orderItems = [
+          ...cart.orderItems,
+          {quantity, shoeId: shoe.id, shoe: shoe}
+        ]
       }
       cart.total += shoe.price * quantity
     } else {
