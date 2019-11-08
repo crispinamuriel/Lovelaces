@@ -12,9 +12,6 @@ const initialState = {
   cart: {
     orderItems: []
   }
-
-  cart: {}
-
 }
 
 // ACTION CREATORS
