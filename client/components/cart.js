@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
 import {removeFromUserCart, getUserCart} from '../store/order'
 import {me} from '../store'
 
@@ -23,7 +24,7 @@ class Cart extends Component {
 
     await this.props.getUserInfo()
 
-    if (this.props.isLoggedIn) {
+    if (this.props.user.id) {
       this.props.getUserCart(this.props.user.id)
     } else {
       this.props.getUserCart(null)
@@ -31,22 +32,32 @@ class Cart extends Component {
   }
 
   render() {
-    const {user, isLoggedIn, cart, remove} = this.props
-    console.log('WHATS IN THE CART', cart.orderItems)
+    const {cart, remove, user} = this.props
 
     return cart.orderItems.length ? (
       <div className="shoe-container">
         {cart.orderItems.map(orderItem => {
+          console.log(orderItem)
           const shoe = orderItem.shoe
           return (
             <div key={shoe.id}>
-              <h3>{shoe.name}</h3>
-              <h4>${shoe.price}</h4>
-              <img src={shoe.imageUrl} />
-              <p />
+              <Link to={`/all-shoes/${shoe.id}`}>
+                <h3>{shoe.name}</h3>
+                <h4>${(shoe.price / 100).toFixed(2)}</h4>
+                <h4>Quantity: {orderItem.quantity}</h4>
+                <img src={shoe.imageUrl} />
+              </Link>
+              <button
+                onClick={() => {
+                  remove(user.id, orderItem.shoeId)
+                }}
+              >
+                Remove
+              </button>
             </div>
           )
         })}
+        <h3>Total Price: {cart.total}</h3>
       </div>
     ) : (
       <div>
@@ -58,7 +69,6 @@ class Cart extends Component {
 
 const mapState = state => ({
   user: state.user,
-  isLoggedIn: state.user.isLoggedIn,
   cart: state.order.cart
 })
 
