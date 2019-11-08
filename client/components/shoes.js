@@ -16,7 +16,7 @@ class Shoes extends Component {
             <Link to={`/all-shoes/${shoe.id}`}>
               <h3>{shoe.name}</h3>
             </Link>
-            <h4>${shoe.price}</h4>
+            <h4>${(shoe.price / 100).toFixed(2)}</h4>
             <img src={shoe.imageUrl} />
           </div>
         ))}
