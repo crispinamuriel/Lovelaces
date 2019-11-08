@@ -13,7 +13,7 @@ class Shoes extends Component {
         {this.props.shoes.map(shoe => (
           <div key={shoe.id}>
             <h3>{shoe.name}</h3>
-            <h4>${shoe.price}</h4>
+            <h4>${(shoe.price / 100).toFixed(2)}</h4>
             <img src={shoe.imageUrl} />
           </div>
         ))}
