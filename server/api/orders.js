@@ -87,6 +87,7 @@ router.post('/user-cart/:userId', async (req, res, next) => {
 
 //Route for removing an item from cart
 router.delete('/user-cart/:userId', async (req, res, next) => {
+  console.log(req.body)
   try {
     //Find the cart for that specfic user
     let cart = await Order.findOne({
@@ -168,7 +169,10 @@ router.post('/guest-cart', async (req, res, next) => {
         cart.orderItems[indexOfTargetOrderItem].quantity += quantity
       } else {
         //If not, add it to orderItems
-        cart.orderItems = [...cart.orderItems, {quantity, shoeId: shoe.id}]
+        cart.orderItems = [
+          ...cart.orderItems,
+          {quantity, shoeId: shoe.id, shoe: shoe}
+        ]
       }
       cart.total += shoe.price * quantity
     } else {
@@ -211,7 +215,6 @@ router.delete('/guest-cart', async (req, res, next) => {
   }
 })
 
-
 // Route for getting all orders, not including carts
 
 router.get('/', async (req, res, next) => {
@@ -233,9 +236,7 @@ router.get('/', async (req, res, next) => {
 router.get('/:orderId', async (req, res, next) => {
   try {
     const singleOrder = await Order.findByPk(req.params.orderId, {
-
       include: {model: OrderItem, include: {model: Shoe}}
-
     })
 
     res.json(singleOrder)

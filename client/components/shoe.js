@@ -16,7 +16,6 @@ class Shoe extends Component {
 
   handleSubmit(event) {
     event.preventDefault()
-    console.log(event.target.quantity.value)
     this.setState({
       [event.target.name]: event.target.value
     })
