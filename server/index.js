@@ -65,9 +65,6 @@ const createApp = () => {
   app.use(passport.session())
 
   // auth and api routes
-  app.use('/auth', require('./auth'))
-  app.use('/api', require('./api'))
-
   app.use(function(req, res, next) {
     if (process.env.NODE_ENV === 'production') {
       const reqType = req.headers['x-forwarded-proto']
@@ -81,6 +78,9 @@ const createApp = () => {
       next()
     }
   })
+
+  app.use('/auth', require('./auth'))
+  app.use('/api', require('./api'))
 
   // static file-serving middleware
   app.use(express.static(path.join(__dirname, '..', 'public')))
