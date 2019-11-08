@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {getShoes} from '../store/shoe'
 
@@ -12,8 +13,10 @@ class Shoes extends Component {
       <div className="shoe-container">
         {this.props.shoes.map(shoe => (
           <div key={shoe.id}>
-            <h3>{shoe.name}</h3>
-            <h4>${shoe.price}</h4>
+            <Link to={`/all-shoes/${shoe.id}`}>
+              <h3>{shoe.name}</h3>
+            </Link>
+            <h4>${shoe.price / 100}</h4>
             <img src={shoe.imageUrl} />
             <p>{shoe.description}</p>
           </div>
