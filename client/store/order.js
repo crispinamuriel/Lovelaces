@@ -8,7 +8,13 @@ const REMOVED_FROM_USER_CART = 'REMOVED_FROM_USER_CART'
 // INITIAL STATE
 const initialState = {
   previousOrders: [],
+
+  cart: {
+    orderItems: []
+  }
+
   cart: {}
+
 }
 
 // ACTION CREATORS
@@ -19,9 +25,10 @@ const removedFromUserCart = cart => ({type: REMOVED_FROM_USER_CART, cart})
 // THUNK CREATORS
 export const getUserCart = userId => async dispatch => {
   try {
-    const {data} = userId
-      ? await axios.get(`/api/orders/user-cart/${userId}`)
-      : await axios.get(`/api/orders/guest-cart/`)
+    const {data} =
+      typeof userId === 'number'
+        ? await axios.get(`/api/orders/user-cart/${userId}`)
+        : await axios.get(`/api/orders/guest-cart/`)
     dispatch(gotUserCart(data))
   } catch (err) {
     console.log(err)
