@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {getCurrentShoe} from '../store/shoe'
+import {addToUserCart, getUserCart} from '../store/order'
 
 class Shoe extends Component {
   constructor(props) {
@@ -12,14 +13,24 @@ class Shoe extends Component {
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
-  handleSubmit() {
-    // cart function
-    // Dont need to reset state, redirect to a different page
+
+  handleSubmit(event) {
+    event.preventDefault()
+    console.log(event.target.quantity.value)
+    this.setState({
+      [event.target.name]: event.target.value
+    })
+    this.props.addToUserCart(
+      this.props.user.id,
+      Number(this.state.quantity),
+      this.props.current.id
+    )
   }
 
-  handleChange() {
-    // update information on the state for the cart(thunk @ handleSubmit) to take in
-    // such as size, quantity for specific cart item
+  handleChange(event) {
+    this.setState({
+      [event.target.name]: event.target.value
+    })
   }
 
   componentDidMount() {
@@ -43,10 +54,10 @@ class Shoe extends Component {
       name
     } = this.props.current
 
-    console.log('SINGLE SHOE COMPONENT PROPS', this.props)
     return (
-      <div id="shoeFullPage">
-        <h1>{name}</h1>
+      <div className="one-shoe-container">
+        <h3>{name}</h3>
+        <img src={imageUrl} className="shoe-img" />
         <p>Product description:{description}</p>
         <p>Shoe type: {categories[category]}</p>
         <p>Price: {price} </p>
@@ -55,7 +66,11 @@ class Shoe extends Component {
           <label>
             {' '}
             Quantity:
-            <select>
+            <select
+              name="quantity"
+              onChange={this.handleChange}
+              value={this.state.quantity}
+            >
               <option value="0">0</option>
               <option value="1">1</option>
               <option value="2">2</option>
@@ -68,7 +83,11 @@ class Shoe extends Component {
           <label>
             {' '}
             Size:
-            <select>
+            <select
+              name="size"
+              onChange={this.handleChange}
+              value={this.state.size}
+            >
               <option value="noSize">select size</option>
               <option value="6">6</option>
               <option value="7">7</option>
@@ -78,47 +97,29 @@ class Shoe extends Component {
             </select>
           </label>
 
-          <button type="submit">Add to Cart</button>
+          <button type="submit">Add</button>
         </form>
-
-        <img src={imageUrl} />
       </div>
     )
   }
 }
-// quantity
-// size
-// add to cart button
 
 const mapStateToProps = state => {
+  //need to add shoeId
   return {
-    current: state.shoe.current
+    current: state.shoe.current,
+    user: state.user,
+    cart: state.order.cart
   }
 }
 
 const mapDispatchToProps = dispatch => {
+  //need to dispatch addToUserCart with userId, quantity, shoeId, name, price
   return {
-    getCurrentShoe: id => dispatch(getCurrentShoe(id))
+    getCurrentShoe: id => dispatch(getCurrentShoe(id)),
+    addToUserCart: (userId, quantity, shoeId) =>
+      dispatch(addToUserCart(userId, quantity, shoeId))
   }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Shoe)
-
-// This can replace the manual options drop-down menu
-// This will map through an "options" variable that will be the max inventory number for a specific shoe, this will depend on how we get the inventory information about the shoe from the store
-
-{
-  /* {options.map((option, index) => (
-              <option value={`${index + 1}`}>{index+1}</option>
-            ))} */
-}
-
-// this can be copy/pasted into mapDispatchToProps, but the thunks themselves are not written yet. Very similar to goody bag
-
-// THUNK FOR INCREASING QUANITITY OF SPECIFIC ORDER ITEM
-// increaseQuantity: (id) => dispatch(increaseQuantity(id)),
-// thunk not written yet
-
-// THUNK FOR DECREASING QUANITITY OF SPECIFIC ORDER ITEM
-// decreaseQuantity: (id) => dispatch(decreaseQuantity(id))
-// t

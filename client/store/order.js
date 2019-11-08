@@ -8,9 +8,13 @@ const REMOVED_FROM_USER_CART = 'REMOVED_FROM_USER_CART'
 // INITIAL STATE
 const initialState = {
   previousOrders: [],
+
   cart: {
     orderItems: []
   }
+
+  cart: {}
+
 }
 
 // ACTION CREATORS
@@ -42,6 +46,7 @@ export const addToUserCart = (userId, quantity, shoeId) => async dispatch => {
           quantity,
           shoeId
         })
+
     dispatch(addedToUserCart(data))
   } catch (err) {
     console.log(err)

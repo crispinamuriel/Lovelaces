@@ -46,7 +46,7 @@ router.post('/user-cart/:userId', async (req, res, next) => {
 
     //Check if the cart exists. If it doesn't, create the cart on the orders table
     const [cart, created] = await Order.findOrCreate({
-      where: {userId: req.params.userId, status: {[Op.eq]: 'In cart'}},
+      where: {userId: req.user.id, status: {[Op.eq]: 'In cart'}},
       defaults: {
         userId: req.params.userId,
         status: 'In cart',
@@ -211,7 +211,9 @@ router.delete('/guest-cart', async (req, res, next) => {
   }
 })
 
+
 // Route for getting all orders, not including carts
+
 router.get('/', async (req, res, next) => {
   try {
     const orders = await Order.findAll({
@@ -231,7 +233,9 @@ router.get('/', async (req, res, next) => {
 router.get('/:orderId', async (req, res, next) => {
   try {
     const singleOrder = await Order.findByPk(req.params.orderId, {
+
       include: {model: OrderItem, include: {model: Shoe}}
+
     })
 
     res.json(singleOrder)
