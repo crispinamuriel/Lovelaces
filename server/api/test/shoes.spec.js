@@ -2,8 +2,10 @@
 
 const {expect} = require('chai')
 const request = require('supertest')
-const db = require('../db')
-const app = require('../index')
+
+const db = require('../../db')
+const app = require('../../index')
+
 const Shoe = db.model('shoe')
 
 describe('Shoe routes', () => {
@@ -14,7 +16,10 @@ describe('Shoe routes', () => {
   describe('/api/shoes/', () => {
     beforeEach(() => {
       return Shoe.create({
-        name: 'Sans Samoa'
+        name: 'Sans Samoa',
+        category: 2,
+        description: 'the best shoes ever',
+        price: 100
       })
     })
 

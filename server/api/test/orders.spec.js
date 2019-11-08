@@ -2,8 +2,10 @@
 
 const {expect} = require('chai')
 const request = require('supertest')
-const db = require('../db')
-const app = require('../index')
+
+const db = require('../../db')
+const app = require('../../index')
+
 const Order = db.model('order')
 
 describe('Order routes', () => {
@@ -12,11 +14,11 @@ describe('Order routes', () => {
   })
 
   describe('/api/orders/', () => {
-    const codysAddress = '123 Code Ln'
-
     beforeEach(() => {
       return Order.create({
-        address: codysAddress
+        address: 'Melody Lane',
+        status: 'Received',
+        total: 10
       })
     })
 
@@ -26,7 +28,6 @@ describe('Order routes', () => {
         .expect(200)
 
       expect(res.body).to.be.an('array')
-      expect(res.body[0].email).to.be.equal(codysAddress)
     })
   }) // end describe('/api/orders')
 }) // end describe('Order routes')
