@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {removeFromUserCart, getUserCart} from '../store/order'
+import {me} from '../store'
 
 class Cart extends Component {
   constructor(props) {
@@ -17,8 +18,11 @@ class Cart extends Component {
     // update state with changed information
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     // bring the order info, w/ thunk from mapDispatch
+
+    await this.props.getUserInfo()
+
     if (this.props.isLoggedIn) {
       this.props.getUserCart(this.props.user.id)
     } else {
@@ -60,8 +64,8 @@ const mapState = state => ({
 
 const mapDispatch = dispatch => ({
   remove: (userId, shoeId) => dispatch(removeFromUserCart(userId, shoeId)),
-  getUserCart: userId => dispatch(getUserCart(userId))
-
+  getUserCart: userId => dispatch(getUserCart(userId)),
+  getUserInfo: () => dispatch(me())
   // the thunk that brings me the order items
 })
 
