@@ -61,7 +61,11 @@ h1 {
 }
 
 .one-shoe-container {
-  display: grid;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  padding-left: 28%;
+  width: 700px;
 }
 
 .shoe-img {
@@ -130,10 +134,10 @@ input[type='password']:focus {
 }
 
 button {
-  float: right;
+  float: center;
   margin-right: 20px;
   margin-top: 20px;
-  width: 80px;
+  width: 150px;
   height: 30px;
   font-size: 14px;
   font-weight: bold;
@@ -225,4 +229,12 @@ button:active {
   top: 50%;
   left: 50%;
   margin-left: -170px;
+}
+
+#buy-container {
+  padding-left: 10px;
+}
+
+#description {
+  width: 40%;
 }
