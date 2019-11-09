@@ -108,7 +108,9 @@ class Shoe extends Component {
               </select>
             </label>
 
-            <button type="submit">Add to Cart</button>
+            <button id="add-to-cart" type="submit">
+              Add to Cart
+            </button>
           </form>
         </div>
       </div>

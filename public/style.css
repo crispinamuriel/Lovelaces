@@ -134,10 +134,10 @@ input[type='password']:focus {
 }
 
 button {
-  float: center;
+  float: right;
   margin-right: 20px;
   margin-top: 20px;
-  width: 110px;
+  width: 80px;
   height: 30px;
   font-size: 14px;
   font-weight: bold;
@@ -237,4 +237,9 @@ button:active {
 
 #description {
   width: 40%;
+}
+
+#add-to-cart {
+  width: 110px;
+  float: left;
 }
