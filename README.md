@@ -52,7 +52,7 @@ LinkedIn: https://www.linkedin.com/in/alexis-w-1799578a/
 
 LinkedIn: https://www.linkedin.com/in/sharminsultana/
 
-Github: https://github.com/sharmin523
+Github: https://www.linkedin.com/in/sharmin-s/
 
 ### `Crispina Muriel`
 
