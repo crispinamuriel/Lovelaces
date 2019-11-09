@@ -55,7 +55,7 @@ class Shoe extends Component {
 
     return (
       <div className="one-shoe-container">
-        <div id="shoe=container">
+        <div>
           <h3>{name}</h3>
           <img src={imageUrl} className="shoe-img" />
           <p>
