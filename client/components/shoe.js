@@ -59,7 +59,7 @@ class Shoe extends Component {
         <img src={imageUrl} className="shoe-img" />
         <p>Product description:{description}</p>
         <p>Shoe type: {categories[category]}</p>
-        <p>Price: {price} </p>
+        <p>Price: {'$' + (price / 100).toFixed(2)} </p>
 
         <form onSubmit={this.handleSubmit}>
           <label>
