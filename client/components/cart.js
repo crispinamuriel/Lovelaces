@@ -43,28 +43,30 @@ class Cart extends Component {
     }
 
     return cart.orderItems.length ? (
-      <div className="shoe-container">
-        {cart.orderItems.map(orderItem => {
-          const shoe = orderItem.shoe
-          return (
-            <div key={shoe.id}>
-              <Link to={`/all-shoes/${shoe.id}`}>
-                <h3>{shoe.name}</h3>
-                <h4>${(shoe.price / 100).toFixed(2)}</h4>
-                <h4>Quantity: {orderItem.quantity}</h4>
-                <img src={shoe.imageUrl} />
-              </Link>
-              <button
-                onClick={() => {
-                  remove(user.id, orderItem.shoeId)
-                }}
-              >
-                Remove
-              </button>
-            </div>
-          )
-        })}
-        <h3>Total Price: {cart.total}</h3>
+      <div>
+        <h3>Your Cart</h3>
+        <table>
+          {cart.orderItems.map(orderItem => {
+            const shoe = orderItem.shoe
+            return (
+              <div key={shoe.id}>
+                <Link to={`/all-shoes/${shoe.id}`}>
+                  <h3>{shoe.name}</h3>
+                  <h4>${(shoe.price / 100).toFixed(2)}</h4>
+                  <h4>Quantity: {orderItem.quantity}</h4>
+                  <img src={shoe.imageUrl} />
+                </Link>
+                <button
+                  onClick={() => {
+                    remove(user.id, orderItem.shoeId)
+                  }}
+                >
+                  Remove
+                </button>
+              </div>
+            )
+          })}
+        </table>
         <Link to="/checkout/">
           <button>Checkout</button>
         </Link>
