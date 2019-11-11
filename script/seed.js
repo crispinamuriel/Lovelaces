@@ -282,12 +282,11 @@ async function runSeed() {
   } catch (err) {
     console.error(err)
     process.exitCode = 1
+  } finally {
+    console.log('closing db connection')
+    await db.close()
+    console.log('db connection closed')
   }
-  // finally {
-  //   console.log('closing db connection')
-  //   await db.close()
-  //   console.log('db connection closed')
-  // }
 }
 
 // Execute the `seed` function, IF we ran this module directly (`node seed`).
