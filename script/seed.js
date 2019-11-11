@@ -264,14 +264,6 @@ async function seed() {
     })
   ])
 
-  const orderOne = orders[0]
-  const orderTwo = orders[1]
-
-  orderOne.addShoe(shoes[0], {through: {quantity: 2}})
-  orderOne.addShoe(shoes[1], {through: {quantity: 1}})
-  orderOne.addShoe(shoes[2], {through: {quantity: 5}})
-  orderTwo.addShoe(shoes[3], {through: {quantity: 1}})
-
   console.log(
     `seeded ${users.length} users, ${shoes.length} shoes, ${
       orders.length
@@ -290,12 +282,11 @@ async function runSeed() {
   } catch (err) {
     console.error(err)
     process.exitCode = 1
+  } finally {
+    console.log('closing db connection')
+    await db.close()
+    console.log('db connection closed')
   }
-  // finally {
-  //   console.log('closing db connection')
-  //   await db.close()
-  //   console.log('db connection closed')
-  // }
 }
 
 // Execute the `seed` function, IF we ran this module directly (`node seed`).
