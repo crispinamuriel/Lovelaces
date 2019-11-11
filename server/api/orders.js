@@ -133,11 +133,11 @@ router.delete('/user-cart/:userId', async (req, res, next) => {
 router.patch('/user-cart/checkout/:userId', async (req, res, next) => {
   try {
     const order = await Order.update(
-      {status: 'Received'},
-      {where: {id: req.params.userId, status: 'In cart'}}
+      {status: 'Received', address: req.body.address},
+      {where: {userId: req.params.userId, status: 'In cart'}}
     )
     if (!order) return res.sendStatus(204)
-    res.sendStatus(200)
+    res.status(200).send({orderItems: []})
   } catch (err) {
     next(err)
   }
@@ -193,7 +193,7 @@ router.post('/guest-cart', async (req, res, next) => {
         address: null,
         status: 'In cart',
         total: shoe.price * quantity,
-        orderItems: [{quantity, shoeId: shoe.id}]
+        orderItems: [{quantity, shoeId: shoe.id, shoe}]
       }
     }
 
@@ -231,15 +231,32 @@ router.delete('/guest-cart', async (req, res, next) => {
 // Route for submitting an order from a guest cart
 router.patch('/guest-cart', async (req, res, next) => {
   try {
-    const user = await User.create(req.body)
-    await Order.create({
+    const order = await Order.create({
       address: req.body.address,
       status: 'Received',
-      total: req.session.cart.total,
-      userId: user.id
+      total: req.session.cart.total
     })
+    const items = []
+    for (let i = 0; i < req.session.cart.orderItems; i++) {
+      const sessionInfo = req.session.cart.orderItems[i]
+      const cartItem = {
+        orderId: order.id,
+        quantity: sessionInfo.quantity,
+        shoeId: sessionInfo.shoeId
+      }
+      items.push(cartItem)
+    }
 
-    res.sendStatus(200)
+    await OrderItem.bulkCreate(items)
+
+    req.session.cart = {
+      address: null,
+      status: 'In cart',
+      total: 0,
+      orderItems: []
+    }
+
+    res.status(200).send(req.session.cart)
   } catch (err) {
     next(err)
   }

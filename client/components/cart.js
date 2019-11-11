@@ -34,6 +34,14 @@ class Cart extends Component {
   render() {
     const {cart, remove, user} = this.props
 
+    if (cart === null) {
+      return (
+        <div>
+          <h3>There's nothing in your cart right now</h3>
+        </div>
+      )
+    }
+
     return cart.orderItems.length ? (
       <div className="shoe-container">
         {cart.orderItems.map(orderItem => {

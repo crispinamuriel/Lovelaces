@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {me} from '../store'
+import {placeOrder} from '../store/order'
 //import {getCurrentCart} from '../store/Carts'
 
 class Checkout extends Component {
@@ -17,16 +18,14 @@ class Checkout extends Component {
   }
 
   async componentDidMount() {
-    console.log('in did mount')
     await this.props.getUserInfo()
 
-    console.log('done awaiting')
-
     if (this.props.user.id) {
-      console.log('in if')
       this.setState({
         firstName: this.props.user.firstName,
-        lastName: this.props.user.lastName
+        lastName: this.props.user.lastName,
+        email: this.props.user.email,
+        address: this.props.user.address
       })
     }
   }
@@ -34,11 +33,13 @@ class Checkout extends Component {
   handleSubmit() {
     event.preventDefault()
 
-    if (this.props.user.id) {
-      console.log(this.props.user.id)
-    }
+    this.props.user.id
+      ? this.props.placeOrder(this.props.user.id, this.state.address)
+      : this.props.placeOrder(null, this.state.address)
+
     // cart function
     // Dont need to reset state, redirect to a different page
+    this.props.history.push('/success')
   }
 
   handleChange() {
@@ -48,11 +49,6 @@ class Checkout extends Component {
       [event.target.name]: event.target.value
     })
   }
-
-  componentDidMount() {
-    //this.props.getCurrentCart(this.props.match.params.cartId)
-  }
-
   render() {
     return (
       <div id="checkoutFullPage">
@@ -128,9 +124,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getUserInfo: () => dispatch(me())
-    //getCurrentCart: id => dispatch(getCurrentCart(id))
+    getUserInfo: () => dispatch(me()),
+    placeOrder: (userId, address) => dispatch(placeOrder(userId, address))
   }
 }
-export default Checkout
-// export default connect(mapStateToProps, mapDispatchToProps)(Checkout)
+
+export default connect(mapStateToProps, mapDispatchToProps)(Checkout)
