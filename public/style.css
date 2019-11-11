@@ -222,6 +222,17 @@ button:active {
 }
 
 #checkoutFullPage {
+  display: flex;
+  flex-direction: column;
+}
+
+#cart-checkout {
+  flex-direction: column;
+  padding-bottom: 70px;
+  width: 50%;
+}
+
+#form {
   text-align: center;
   position: relative;
   width: 340px;
@@ -229,6 +240,7 @@ button:active {
   top: 50%;
   left: 50%;
   margin-left: -170px;
+  padding-bottom: 200px;
 }
 
 #buy-container {
@@ -241,5 +253,5 @@ button:active {
 
 #add-to-cart {
   width: 110px;
-  float: left;
+  align-items: center;
 }

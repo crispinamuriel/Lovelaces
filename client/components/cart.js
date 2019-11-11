@@ -57,7 +57,12 @@ class Cart extends Component {
             </div>
           )
         })}
-        <h3>Total Price: ${(cart.total / 100).toFixed(2)}</h3>
+        <div>
+          <h3>Total Price: ${(cart.total / 100).toFixed(2)}</h3>
+          <Link to="/checkout">
+            <button id="add-to-cart">Checkout</button>
+          </Link>
+        </div>
       </div>
     ) : (
       <div>

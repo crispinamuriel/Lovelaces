@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+import Cart from './cart'
 //import {getCurrentCart} from '../store/Carts'
 
 class Checkout extends Component {
@@ -28,76 +29,63 @@ class Checkout extends Component {
   }
 
   render() {
-    // const categories = {
-    //   1: 'Sneakers',
-    //   2: 'Boots & Booties',
-    //   3: 'Flip-Flops',
-    //   4: 'Heels',
-    //   5: 'Flats'
-    // }
-    // const {
-    //   inventory,
-    //   description,
-    //   category,
-    //   price,
-    //   imageUrl,
-    //   name
-    // } = this.props.current
-
     return (
       <div id="checkoutFullPage">
-        {console.log('hi')}
-        <h2>Checkout</h2>
-        <form onSubmit={this.handleSubmit}>
-          <label>
-            First Name:
-            <input
-              type="text"
-              value={this.state.value}
-              onChange={this.handleChange}
-            />
-          </label>
-          <label>
-            Last Name:
-            <input
-              type="text"
-              value={this.state.value}
-              onChange={this.handleChange}
-            />
-          </label>
-          <label>
-            Shipping Address:
-            <input
-              type="text"
-              value={this.state.value}
-              onChange={this.handleChange}
-            />
-          </label>
-          <label>
-            Credit Card Number:
-            <input
-              type="text"
-              value={this.state.value}
-              onChange={this.handleChange}
-            />
-          </label>
-          <label>
-            Billing Address:
-            <input
-              type="text"
-              value={this.state.value}
-              onChange={this.handleChange}
-            />
-          </label>
-          <button type="submit">Checkout</button>
-        </form>
+        <div id="form">
+          <h2>Checkout</h2>
+          <form onSubmit={this.handleSubmit}>
+            <label>
+              First Name:
+              <input
+                type="text"
+                value={this.state.value}
+                onChange={this.handleChange}
+              />
+            </label>
+            <label>
+              Last Name:
+              <input
+                type="text"
+                value={this.state.value}
+                onChange={this.handleChange}
+              />
+            </label>
+            <label>
+              Shipping Address:
+              <input
+                type="text"
+                value={this.state.value}
+                onChange={this.handleChange}
+              />
+            </label>
+            <label>
+              Credit Card Number:
+              <input
+                type="text"
+                value={this.state.value}
+                onChange={this.handleChange}
+              />
+            </label>
+            <label>
+              Billing Address:
+              <input
+                type="text"
+                value={this.state.value}
+                onChange={this.handleChange}
+              />
+            </label>
+            <button id="add-to-cart" type="submit">
+              Submit Order
+            </button>
+          </form>
+        </div>
+        <div id="cart">
+          <Cart />
+        </div>
       </div>
     )
   }
 }
-// quantity
-// size
-// add to cart button
 
 const mapStateToProps = state => {
   return {
