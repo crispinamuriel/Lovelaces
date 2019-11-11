@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {getCurrentShoe} from '../store/shoe'
-import {addToUserCart, getUserCart} from '../store/order'
+import {addToUserCart} from '../store/order'
 
 class Shoe extends Component {
   constructor(props) {
@@ -14,16 +14,19 @@ class Shoe extends Component {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  handleSubmit(event) {
+  async handleSubmit(event) {
     event.preventDefault()
+
     this.setState({
       [event.target.name]: event.target.value
     })
-    this.props.addToUserCart(
+
+    await this.props.addToUserCart(
       this.props.user.id,
       Number(this.state.quantity),
       this.props.current.id
     )
+
     this.props.history.push('/cart')
   }
 
