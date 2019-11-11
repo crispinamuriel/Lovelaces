@@ -68,6 +68,7 @@ class Cart extends Component {
         <Link to="/checkout/">
           <button>Checkout</button>
         </Link>
+        <h3>Total Price: ${(cart.total / 100).toFixed(2)}</h3>
       </div>
     ) : (
       <div>
