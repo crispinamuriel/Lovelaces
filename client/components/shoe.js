@@ -24,6 +24,7 @@ class Shoe extends Component {
       Number(this.state.quantity),
       this.props.current.id
     )
+    this.props.history.push('/cart')
   }
 
   handleChange(event) {
@@ -55,49 +56,64 @@ class Shoe extends Component {
 
     return (
       <div className="one-shoe-container">
-        <h3>{name}</h3>
-        <img src={imageUrl} className="shoe-img" />
-        <p>Product description:{description}</p>
-        <p>Shoe type: {categories[category]}</p>
-        <p>Price: {price} </p>
+        <div>
+          <h3>{name}</h3>
+          <img src={imageUrl} className="shoe-img" />
+          <p>
+            <b>Product description: </b>
+          </p>
+          <div id="description">{description}</div>
+        </div>
+        <div id="buy-container">
+          <p>
+            <b>Shoe type: </b>
+            {categories[category]}
+          </p>
+          <p>
+            <b>Price: </b>
+            {'$' + (price / 100).toFixed(2)}{' '}
+          </p>
 
-        <form onSubmit={this.handleSubmit}>
-          <label>
-            {' '}
-            Quantity:
-            <select
-              name="quantity"
-              onChange={this.handleChange}
-              value={this.state.quantity}
-            >
-              <option value="0">0</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-            </select>
-          </label>
+          <form onSubmit={this.handleSubmit}>
+            <label>
+              {' '}
+              <b>Quantity: </b>
+              <select
+                name="quantity"
+                onChange={this.handleChange}
+                value={this.state.quantity}
+              >
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+            </label>
 
-          <label>
-            {' '}
-            Size:
-            <select
-              name="size"
-              onChange={this.handleChange}
-              value={this.state.size}
-            >
-              <option value="noSize">select size</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
-            </select>
-          </label>
+            <label>
+              {' '}
+              <b>Size: </b>
+              <select
+                name="size"
+                onChange={this.handleChange}
+                value={this.state.size}
+              >
+                <option value="noSize">select size</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+              </select>
+            </label>
 
-          <button type="submit">Add</button>
-        </form>
+            <button id="add-to-cart" type="submit">
+              Add to Cart
+            </button>
+          </form>
+        </div>
       </div>
     )
   }
