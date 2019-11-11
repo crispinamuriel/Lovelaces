@@ -264,14 +264,6 @@ async function seed() {
     })
   ])
 
-  const orderOne = orders[0]
-  const orderTwo = orders[1]
-
-  orderOne.addShoe(shoes[0], {through: {quantity: 2}})
-  orderOne.addShoe(shoes[1], {through: {quantity: 1}})
-  orderOne.addShoe(shoes[2], {through: {quantity: 5}})
-  orderTwo.addShoe(shoes[3], {through: {quantity: 1}})
-
   console.log(
     `seeded ${users.length} users, ${shoes.length} shoes, ${
       orders.length

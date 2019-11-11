@@ -4,20 +4,20 @@ import {expect} from 'chai'
 import React from 'react'
 import enzyme, {shallow} from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
-import Shoe from './shoe'
+import Navbar from './navbar'
 import store from '../store/index'
 
 const adapter = new Adapter()
 enzyme.configure({adapter})
 
-describe('Shoe', () => {
-  let shoe
+describe('Navbar', () => {
+  let navbar
 
   beforeEach(() => {
-    shoe = shallow(<Shoe current={{name: 'hi'}} store={store} />)
+    navbar = shallow(<Navbar store={store} />)
   })
 
-  it('renders an h3', () => {
-    expect(typeof shoe.find('h3')).to.be.equal('object')
+  it('renders app name in an h1', () => {
+    expect(typeof navbar.find('h1')).to.be.equal('object')
   })
 })

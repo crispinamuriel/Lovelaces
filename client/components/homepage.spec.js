@@ -4,20 +4,19 @@ import {expect} from 'chai'
 import React from 'react'
 import enzyme, {shallow} from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
-import Shoe from './shoe'
-import store from '../store/index'
+import Homepage from './homepage'
 
 const adapter = new Adapter()
 enzyme.configure({adapter})
 
-describe('Shoe', () => {
-  let shoe
+describe('Homepage', () => {
+  let homepage
 
   beforeEach(() => {
-    shoe = shallow(<Shoe current={{name: 'hi'}} store={store} />)
+    homepage = shallow(<Homepage />)
   })
 
-  it('renders an h3', () => {
-    expect(typeof shoe.find('h3')).to.be.equal('object')
+  it('renders a div with no text', () => {
+    expect(homepage.find('div').text()).to.be.equal('')
   })
 })
