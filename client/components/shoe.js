@@ -24,6 +24,7 @@ class Shoe extends Component {
       Number(this.state.quantity),
       this.props.current.id
     )
+    this.props.history.push('/cart')
   }
 
   handleChange(event) {
