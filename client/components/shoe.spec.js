@@ -4,16 +4,16 @@ import {expect} from 'chai'
 import React from 'react'
 import enzyme, {shallow} from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
-import {Shoe} from '../shoe'
-
+import Shoe from './shoe'
+import store from '../store/index'
 const adapter = new Adapter()
 enzyme.configure({adapter})
-const current = {name: 'Schutz Chayanne'}
+
 describe('Shoe', () => {
   let shoe
 
   beforeEach(() => {
-    shoe = shallow(<Shoe current={current} />)
+    shoe = shallow(<Shoe current={{name: 'Schutz Chayanne'}} store={store} />)
   })
 
   it('renders the name in an h3', () => {
