@@ -1,5 +1,5 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 
 /**
@@ -10,7 +10,13 @@ export const UserHome = props => {
 
   return (
     <div>
-      <h3>Welcome, {name}</h3>
+      <h3>Welcome back, {name}!</h3>
+      <Link to="/profile">
+        <h4>My Details</h4>
+      </Link>
+      <Link to="/orders">
+        <h4>My Orders</h4>
+      </Link>
     </div>
   )
 }
@@ -20,16 +26,8 @@ export const UserHome = props => {
  */
 const mapState = state => {
   return {
-    email: state.user.email,
     name: state.user.firstName
   }
 }
 
 export default connect(mapState)(UserHome)
-
-/**
- * PROP TYPES
- */
-UserHome.propTypes = {
-  email: PropTypes.string
-}

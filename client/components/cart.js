@@ -25,9 +25,9 @@ class Cart extends Component {
     await this.props.getUserInfo()
 
     if (this.props.user.id) {
-      this.props.getUserCart(this.props.user.id)
+      await this.props.getUserCart(this.props.user.id)
     } else {
-      this.props.getUserCart(null)
+      await this.props.getUserCart(null)
     }
   }
 

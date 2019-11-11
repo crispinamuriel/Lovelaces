@@ -23,11 +23,11 @@ const placedOrder = cart => ({type: PLACED_ORDER, cart})
 
 // THUNK CREATORS
 export const getUserCart = userId => async dispatch => {
+  console.log('in get user cart')
   try {
-    const {data} =
-      typeof userId === 'number'
-        ? await axios.get(`/api/orders/user-cart/${userId}`)
-        : await axios.get(`/api/orders/guest-cart/`)
+    const {data} = userId
+      ? await axios.get(`/api/orders/user-cart/${userId}`)
+      : await axios.get(`/api/orders/guest-cart/`)
     dispatch(gotUserCart(data))
   } catch (err) {
     console.log(err)
