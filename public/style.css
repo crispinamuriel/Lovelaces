@@ -61,7 +61,11 @@ h1 {
 }
 
 .one-shoe-container {
-  display: grid;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  padding-left: 31%;
+  width: 700px;
 }
 
 .shoe-img {
@@ -225,4 +229,17 @@ button:active {
   top: 50%;
   left: 50%;
   margin-left: -170px;
+}
+
+#buy-container {
+  padding-left: 10px;
+}
+
+#description {
+  width: 40%;
+}
+
+#add-to-cart {
+  width: 110px;
+  float: left;
 }
