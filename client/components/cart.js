@@ -1,3 +1,4 @@
+/* eslint-disable react/button-has-type */
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
@@ -21,7 +22,6 @@ class Cart extends Component {
 
   async componentDidMount() {
     // bring the order info, w/ thunk from mapDispatch
-
     await this.props.getUserInfo()
 
     if (this.props.user.id) {
@@ -37,7 +37,6 @@ class Cart extends Component {
     return cart.orderItems.length ? (
       <div className="shoe-container">
         {cart.orderItems.map(orderItem => {
-          console.log(orderItem)
           const shoe = orderItem.shoe
           return (
             <div key={shoe.id}>
@@ -58,6 +57,9 @@ class Cart extends Component {
           )
         })}
         <h3>Total Price: {cart.total}</h3>
+        <Link to="/checkout/">
+          <button>Checkout</button>
+        </Link>
       </div>
     ) : (
       <div>

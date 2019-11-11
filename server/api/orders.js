@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {Order, OrderItem, Shoe} = require('../db/models')
+const {Order, OrderItem, Shoe, User} = require('../db/models')
 const Op = require('sequelize').Op
 module.exports = router
 
@@ -83,8 +83,6 @@ router.post('/user-cart/:userId', async (req, res, next) => {
   }
 })
 
-//Route for adding an order
-
 //Route for removing an item from cart
 router.delete('/user-cart/:userId', async (req, res, next) => {
   console.log(req.body)
@@ -130,6 +128,20 @@ router.delete('/user-cart/:userId', async (req, res, next) => {
 })
 
 //Route for updating quantities for an item in cart
+
+//Route for submitting an order for a logged in user
+router.patch('/user-cart/checkout/:userId', async (req, res, next) => {
+  try {
+    const order = await Order.update(
+      {status: 'Received'},
+      {where: {id: req.params.userId, status: 'In cart'}}
+    )
+    if (!order) return res.sendStatus(204)
+    res.sendStatus(200)
+  } catch (err) {
+    next(err)
+  }
+})
 
 //Route for getting guest cart
 router.get('/guest-cart', (req, res, next) => {
@@ -191,6 +203,7 @@ router.post('/guest-cart', async (req, res, next) => {
   }
 })
 
+//Route for removing an item from guest cart
 router.delete('/guest-cart', async (req, res, next) => {
   try {
     const shoe = await Shoe.findByPk(req.body.shoeId)
@@ -215,8 +228,24 @@ router.delete('/guest-cart', async (req, res, next) => {
   }
 })
 
-// Route for getting all orders, not including carts
+// Route for submitting an order from a guest cart
+router.patch('/guest-cart', async (req, res, next) => {
+  try {
+    const user = await User.create(req.body)
+    await Order.create({
+      address: req.body.address,
+      status: 'Received',
+      total: req.session.cart.total,
+      userId: user.id
+    })
 
+    res.sendStatus(200)
+  } catch (err) {
+    next(err)
+  }
+})
+
+// Route for getting all orders, not including carts
 router.get('/', async (req, res, next) => {
   try {
     const orders = await Order.findAll({

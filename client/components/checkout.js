@@ -1,19 +1,42 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+import {me} from '../store'
 //import {getCurrentCart} from '../store/Carts'
 
 class Checkout extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      quantity: '',
-      size: ''
+      firstName: '',
+      lastName: '',
+      email: '',
+      address: ''
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
+
+  async componentDidMount() {
+    console.log('in did mount')
+    await this.props.getUserInfo()
+
+    console.log('done awaiting')
+
+    if (this.props.user.id) {
+      console.log('in if')
+      this.setState({
+        firstName: this.props.user.firstName,
+        lastName: this.props.user.lastName
+      })
+    }
+  }
+
   handleSubmit() {
     event.preventDefault()
+
+    if (this.props.user.id) {
+      console.log(this.props.user.id)
+    }
     // cart function
     // Dont need to reset state, redirect to a different page
   }
@@ -21,6 +44,9 @@ class Checkout extends Component {
   handleChange() {
     // update information on the state for the cart(thunk @ handleSubmit) to take in
     // such as size, quantity for specific cart item
+    this.setState({
+      [event.target.name]: event.target.value
+    })
   }
 
   componentDidMount() {
@@ -28,52 +54,47 @@ class Checkout extends Component {
   }
 
   render() {
-    // const categories = {
-    //   1: 'Sneakers',
-    //   2: 'Boots & Booties',
-    //   3: 'Flip-Flops',
-    //   4: 'Heels',
-    //   5: 'Flats'
-    // }
-    // const {
-    //   inventory,
-    //   description,
-    //   category,
-    //   price,
-    //   imageUrl,
-    //   name
-    // } = this.props.current
-
     return (
       <div id="checkoutFullPage">
-        {console.log('hi')}
         <h2>Checkout</h2>
         <form onSubmit={this.handleSubmit}>
           <label>
             First Name:
             <input
+              name="firstName"
               type="text"
-              value={this.state.value}
+              value={this.state.firstName}
               onChange={this.handleChange}
             />
           </label>
           <label>
             Last Name:
             <input
+              name="lastName"
               type="text"
-              value={this.state.value}
+              value={this.state.lastName}
+              onChange={this.handleChange}
+            />
+          </label>
+          <label>
+            Email:
+            <input
+              name="email"
+              type="text"
+              value={this.state.email}
               onChange={this.handleChange}
             />
           </label>
           <label>
             Shipping Address:
             <input
+              name="address"
               type="text"
-              value={this.state.value}
+              value={this.state.address}
               onChange={this.handleChange}
             />
           </label>
-          <label>
+          {/* <label>
             Credit Card Number:
             <input
               type="text"
@@ -88,8 +109,8 @@ class Checkout extends Component {
               value={this.state.value}
               onChange={this.handleChange}
             />
-          </label>
-          <button type="submit">Checkout</button>
+          </label> */}
+          <button type="submit">Place Order</button>
         </form>
       </div>
     )
@@ -101,12 +122,13 @@ class Checkout extends Component {
 
 const mapStateToProps = state => {
   return {
-    current: state.cart.current
+    user: state.user
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
+    getUserInfo: () => dispatch(me())
     //getCurrentCart: id => dispatch(getCurrentCart(id))
   }
 }

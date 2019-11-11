@@ -4,6 +4,7 @@ import axios from 'axios'
 const GOT_USER_CART = 'GOT_USER_CART'
 const ADDED_TO_USER_CART = 'ADDED_TO_USER_CART'
 const REMOVED_FROM_USER_CART = 'REMOVED_FROM_USER_CART'
+const PLACED_ORDER = 'PLACED_ORDER'
 
 // INITIAL STATE
 const initialState = {
@@ -18,6 +19,7 @@ const initialState = {
 const gotUserCart = cart => ({type: GOT_USER_CART, cart})
 const addedToUserCart = cart => ({type: ADDED_TO_USER_CART, cart})
 const removedFromUserCart = cart => ({type: REMOVED_FROM_USER_CART, cart})
+const placedOrder = () => ({type: PLACED_ORDER})
 
 // THUNK CREATORS
 export const getUserCart = userId => async dispatch => {
@@ -54,12 +56,21 @@ export const removeFromUserCart = (userId, shoeId) => async dispatch => {
   try {
     const {data} = userId
       ? await axios.delete(`/api/orders/user-cart/${userId}`, {
-          shoeId
+          data: {shoeId}
         })
       : await axios.delete(`/api/orders/guest-cart`, {
-          shoeId
+          data: {shoeId}
         })
     dispatch(removedFromUserCart(data))
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+export const placeOrder = userId => async dispatch => {
+  try {
+    // userId ?
+    // await axios.patch(`/api/orders/user-cart/checkout/${userId}`)
   } catch (err) {
     console.log(err)
   }
