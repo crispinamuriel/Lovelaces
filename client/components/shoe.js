@@ -2,16 +2,43 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {getCurrentShoe} from '../store/shoe'
 import {addToUserCart} from '../store/order'
+import {
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Button,
+  Typography,
+  IconButton,
+  TextField
+} from '@material-ui/core'
 
+import {
+  AddCircleOutlineRounded,
+  RemoveCircleOutlineRounded,
+  ShoppingCart
+} from '@material-ui/icons'
+
+const styles = {
+  card: {
+    maxWidth: 500
+  },
+  media: {
+    // objectFit: 'cover',
+    height: 250
+  }
+}
 class Shoe extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      quantity: '',
+      quantity: 0,
       size: ''
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.increase = this.increase.bind(this)
+    this.decrease = this.decrease.bind(this)
   }
 
   async handleSubmit(event) {
@@ -36,6 +63,42 @@ class Shoe extends Component {
     })
   }
 
+  increase() {
+    this.setState(prevState => ({
+      quantity: prevState.quantity + 1
+    }))
+  }
+
+  // increase() {
+  //   this.setState(prevState => {
+  //     if(prevState.quantity < this.props.current.inventory) {
+  //       return {
+  //         quantity: prevState.quantity + 1
+  //       }
+  //     } else {
+  //       return ;
+  //     }
+  //   });
+  // }
+
+  decrease() {
+    this.setState(prevState => ({
+      quantity: prevState.quantity - 1
+    }))
+  }
+
+  // decrease() {
+  //   this.setState(prevState => {
+  //     if(prevState.quantity > 0 ) {
+  //       return {
+  //         quantity: prevState.quantity + 1
+  //       }
+  //     } else {
+  //       return ;
+  //     }
+  //   });
+  // }
+
   componentDidMount() {
     this.props.getCurrentShoe(this.props.match.params.shoeId)
   }
@@ -48,6 +111,7 @@ class Shoe extends Component {
       4: 'Heels',
       5: 'Flats'
     }
+
     const {
       inventory,
       description,
@@ -57,66 +121,107 @@ class Shoe extends Component {
       name
     } = this.props.current
 
+    const disabledIncrease = this.state.quantity === inventory
+    const disabledDecrease = this.state.quantity === 0
+
     return (
-      <div className="one-shoe-container">
-        <div>
-          <h3>{name}</h3>
-          <img src={imageUrl} className="shoe-img" />
-          <p>
-            <b>Product description: </b>
-          </p>
-          <div id="description">{description}</div>
-        </div>
+      <Card className="entire-shoe">
+        <CardMedia
+          className="shoe-media"
+          component="img"
+          img={imageUrl}
+          alt={`${name} image`}
+          title={`${name} image`}
+        />
+
+        <CardContent className="shoe-details">
+          <Typography component="h3" variant="h3">
+            {name}
+          </Typography>
+
+          <Typography variant="subtitle1" color="textSecondary">
+            Shoe type: {categories[category]}
+          </Typography>
+
+          <Typography variant="subtitle1" color="textSecondary">
+            Price:{'$' + (price / 100).toFixed(2)}{' '}
+          </Typography>
+
+          <Typography variant="subtitle1"> Product details: </Typography>
+
+          <Typography variant="body1" color="textSecondary">
+            {description}
+          </Typography>
+        </CardContent>
+
         <div id="buy-container">
-          <p>
-            <b>Shoe type: </b>
-            {categories[category]}
-          </p>
-          <p>
-            <b>Price: </b>
-            {'$' + (price / 100).toFixed(2)}{' '}
-          </p>
+          <form
+            className="purchase-area"
+            noValidate
+            autoComplete="off"
+            onSubmit={this.handleSubmit}
+          >
+            <TextField
+              select
+              name="size"
+              onChange={this.handleChange}
+              value={this.state.size}
+              helperText="Select size"
+            >
+              <option value="noSize">select size</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+            </TextField>
 
-          <form onSubmit={this.handleSubmit}>
-            <label>
-              {' '}
-              <b>Quantity: </b>
-              <select
-                name="quantity"
-                onChange={this.handleChange}
-                value={this.state.quantity}
+            <TextField
+              select
+              name="quantity"
+              onChange={this.handleChange}
+              value={this.state.quantity}
+            >
+              <Typography variant="h5" gutterBottom>
+                {this.state.quantity}
+              </Typography>
+            </TextField>
+
+            <CardActions>
+              <IconButton
+                size="small"
+                color="primary"
+                disabled={disabledDecrease}
+                onClick={this.decrease}
               >
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-              </select>
-            </label>
+                <RemoveCircleOutlineRounded />
+              </IconButton>
 
-            <label>
-              {' '}
-              <b>Size: </b>
-              <select
-                name="size"
-                onChange={this.handleChange}
-                value={this.state.size}
+              <Typography variant="body1" color="textSecondary">
+                Quantity: {this.state.quantity}
+              </Typography>
+
+              <IconButton
+                size="small"
+                color="primary"
+                disabled={disabledIncrease}
+                onClick={this.increase}
               >
-                <option value="noSize">select size</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-              </select>
-            </label>
+                <AddCircleOutlineRounded />
+              </IconButton>
 
-            <button id="add-to-cart" type="submit">
-              Add to Cart
-            </button>
+              <Button
+                id="add-to-cart"
+                type="submit"
+                size="large"
+                startIcon={<ShoppingCart />}
+              >
+                Add to Cart
+              </Button>
+            </CardActions>
           </form>
         </div>
-      </div>
+      </Card>
     )
   }
 }
