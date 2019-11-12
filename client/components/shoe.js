@@ -168,6 +168,7 @@ class Shoe extends Component {
               value={this.state.size}
               helperText="Select size"
             >
+              SIZES
               <option value="noSize">select size</option>
               <option value="6">6</option>
               <option value="7">7</option>
