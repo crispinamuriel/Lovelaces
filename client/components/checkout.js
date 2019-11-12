@@ -85,6 +85,7 @@ class Checkout extends Component {
               onChange={this.handleChange}
             />
           </label>
+
           <button type="submit">Place Order</button>
         </form>
       </div>
