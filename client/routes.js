@@ -19,7 +19,8 @@ import {
   Cart,
   Success,
   UserOrders,
-  UserProfile
+  UserProfile,
+  OrderDetails
 } from './components'
 import {me} from './store'
 
@@ -56,6 +57,7 @@ class Routes extends Component {
           <Switch>
             <Route path="/home" component={UserHome} />
             <Route path="/profile" component={UserProfile} />
+            <Route path="/orders/:orderId" component={OrderDetails} />
             <Route path="/orders" component={UserOrders} />
           </Switch>
         )}
