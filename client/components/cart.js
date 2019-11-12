@@ -60,9 +60,6 @@ class Cart extends Component {
       )
     }
 
-    console.log('SHOW ME THE USER', user)
-    console.log('SHOW ME CART TOTAL', cart.total)
-    console.log('SHOW ME THE ORDER ITEMS', cart.orderItems)
     return (
       <Grid container justify="center">
         <Paper style={style.paper} elevation={5}>
