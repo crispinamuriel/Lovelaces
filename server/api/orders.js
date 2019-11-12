@@ -3,15 +3,6 @@ const {Order, OrderItem, Shoe, User} = require('../db/models')
 const Op = require('sequelize').Op
 module.exports = router
 
-//Helper function for updating cart total
-// async function updateTotal (shoeId, quantity, userId) {
-//   try {
-
-//   } catch (err) {
-//     cons
-//   }
-// }
-
 //Route for getting all orders for a specific user, not including cart
 router.get('/user-orders/:userId', async (req, res, next) => {
   try {
