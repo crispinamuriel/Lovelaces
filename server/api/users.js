@@ -25,16 +25,11 @@ router.get('/:userId', async (req, res, next) => {
   }
 })
 
-// route for getting all orders by customerId
-// cant be tested until orders
-router.get('/:userId/orders', async (req, res, next) => {
+router.patch('/:userId', async (req, res, next) => {
   try {
-    const user = await User.findByPk(req.params.userId, {
-      attributes: ['id', 'email'],
-      include: {model: Order}
-    })
-
-    res.json(user)
+    const user = await User.update(req.body, {where: {id: req.params.userId}})
+    if (!user) return res.sendStatus(204)
+    res.status(200).send(user)
   } catch (err) {
     next(err)
   }

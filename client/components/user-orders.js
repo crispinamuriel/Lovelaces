@@ -100,7 +100,6 @@ const mapState = state => ({
 })
 
 const mapDispatch = dispatch => ({
-  getUserInfo: () => dispatch(me()),
   getOrders: userId => dispatch(getPreviousOrders(userId))
 })
 
