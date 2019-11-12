@@ -25,9 +25,9 @@ class Cart extends Component {
     await this.props.getUserInfo()
 
     if (this.props.user.id) {
-      this.props.getUserCart(this.props.user.id)
+      await this.props.getUserCart(this.props.user.id)
     } else {
-      this.props.getUserCart(null)
+      await this.props.getUserCart(null)
     }
   }
 
@@ -64,11 +64,11 @@ class Cart extends Component {
             </div>
           )
         })}
-        <h3>Total Price: {cart.total}</h3>
+
+        <h3>Total Price: ${(cart.total / 100).toFixed(2)}</h3>
         <Link to="/checkout/">
           <button>Checkout</button>
         </Link>
-        <h3>Total Price: ${(cart.total / 100).toFixed(2)}</h3>
       </div>
     ) : (
       <div>
