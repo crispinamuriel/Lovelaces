@@ -123,7 +123,6 @@ class Shoe extends Component {
 }
 
 const mapStateToProps = state => {
-  //need to add shoeId
   return {
     current: state.shoe.current,
     user: state.user,
@@ -132,7 +131,6 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => {
-  //need to dispatch addToUserCart with userId, quantity, shoeId, name, price
   return {
     getCurrentShoe: id => dispatch(getCurrentShoe(id)),
     addToUserCart: (userId, quantity, shoeId) =>

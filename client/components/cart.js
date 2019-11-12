@@ -1,5 +1,4 @@
 /* eslint-disable react/button-has-type */
-/* eslint-disable react/button-has-type */
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
@@ -171,9 +170,6 @@ const mapDispatch = dispatch => ({
   remove: (userId, shoeId) => dispatch(removeFromUserCart(userId, shoeId)),
   getUserCart: userId => dispatch(getUserCart(userId)),
   getUserInfo: () => dispatch(me())
-  // the thunk that brings me the order items
 })
 
 export default connect(mapState, mapDispatch)(Cart)
-
-// write a route for updating guest & logged in cart

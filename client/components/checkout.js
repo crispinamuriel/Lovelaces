@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {me} from '../store'
 import {placeOrder} from '../store/order'
-//import {getCurrentCart} from '../store/Carts'
 
 class Checkout extends Component {
   constructor(props) {
@@ -37,14 +36,10 @@ class Checkout extends Component {
       ? this.props.placeOrder(this.props.user.id, this.state.address)
       : this.props.placeOrder(null, this.state.address)
 
-    // cart function
-    // Dont need to reset state, redirect to a different page
     this.props.history.push('/success')
   }
 
   handleChange() {
-    // update information on the state for the cart(thunk @ handleSubmit) to take in
-    // such as size, quantity for specific cart item
     this.setState({
       [event.target.name]: event.target.value
     })
@@ -90,31 +85,12 @@ class Checkout extends Component {
               onChange={this.handleChange}
             />
           </label>
-          {/* <label>
-            Credit Card Number:
-            <input
-              type="text"
-              value={this.state.value}
-              onChange={this.handleChange}
-            />
-          </label>
-          <label>
-            Billing Address:
-            <input
-              type="text"
-              value={this.state.value}
-              onChange={this.handleChange}
-            />
-          </label> */}
           <button type="submit">Place Order</button>
         </form>
       </div>
     )
   }
 }
-// quantity
-// size
-// add to cart button
 
 const mapStateToProps = state => {
   return {
