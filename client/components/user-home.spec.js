@@ -13,10 +13,10 @@ describe('UserHome', () => {
   let userHome
 
   beforeEach(() => {
-    userHome = shallow(<UserHome name="Cody" />)
+    userHome = shallow(<UserHome variant="h6" />)
   })
 
-  it('renders the email in an h3', () => {
-    expect(userHome.find('h3').text()).to.be.equal('Welcome back, Cody!')
+  it('renders a grid', () => {
+    expect(typeof userHome.find('h6')).to.be.equal('object')
   })
 })

@@ -6,11 +6,12 @@ const ADDED_TO_USER_CART = 'ADDED_TO_USER_CART'
 const REMOVED_FROM_USER_CART = 'REMOVED_FROM_USER_CART'
 const PLACED_ORDER = 'PLACED_ORDER'
 const GOT_PREVIOUS_ORDERS = 'GOT_PREVIOUS_ORDERS'
+const GOT_CURRENT_ORDER = 'GOT_CURRENT_ORDER'
 
 // INITIAL STATE
 const initialState = {
   previousOrders: [],
-
+  current: {},
   cart: {
     orderItems: []
   }
@@ -25,10 +26,10 @@ const gotPreviousOrders = previousOrders => ({
   type: GOT_PREVIOUS_ORDERS,
   previousOrders
 })
+const gotCurrentOrder = order => ({type: GOT_CURRENT_ORDER, order})
 
 // THUNK CREATORS
 export const getUserCart = userId => async dispatch => {
-  console.log('in get user cart')
   try {
     const {data} = userId
       ? await axios.get(`/api/orders/user-cart/${userId}`)
@@ -92,6 +93,15 @@ export const getPreviousOrders = userId => async dispatch => {
   }
 }
 
+export const getCurrentOrder = orderId => async dispatch => {
+  try {
+    const {data} = await axios.get(`/api/orders/${orderId}`)
+    dispatch(gotCurrentOrder(data))
+  } catch (err) {
+    next(err)
+  }
+}
+
 // REDUCER
 export default function(state = initialState, action) {
   switch (action.type) {
@@ -105,6 +115,9 @@ export default function(state = initialState, action) {
       return {...state, cart: action.cart}
     case GOT_PREVIOUS_ORDERS:
       return {...state, previousOrders: action.previousOrders}
+    case GOT_CURRENT_ORDER: {
+      return {...state, current: action.order}
+    }
     default:
       return state
   }

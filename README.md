@@ -4,6 +4,8 @@ LoveLaces is full-stack e-commerce web application for selling shoes. LoveLaces 
 
 Visit [LoveLaces](https://grace-shopper-lovelaces.herokuapp.com/) to check it out!
 
+* [View Wireframes](./public/wireframes)
+
 ## Table of Contents
 
 * [LoveLaces](#LoveLaces)

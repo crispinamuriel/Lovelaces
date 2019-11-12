@@ -178,111 +178,11 @@ class Shoe extends Component {
           </Grid>
         </Paper>
       </Grid>
-
-      // <Card className="entire-shoe">
-      //   <CardMedia
-      //     className="shoe-media"
-      //     component="img"
-      //     img={imageUrl}
-      //     alt={`${name} image`}
-      //     title={`${name} image`}
-      //   />
-
-      //   <CardContent className="shoe-details">
-      //     <Typography component="h3" variant="h3">
-      //       {name}
-      //     </Typography>
-
-      //     <Typography variant="subtitle1" color="textSecondary">
-      //       Shoe type: {categories[category]}
-      //     </Typography>
-
-      //     <Typography variant="subtitle1" color="textSecondary">
-      //       Price:{'$' + (price / 100).toFixed(2)}{' '}
-      //     </Typography>
-
-      //     <Typography variant="subtitle1"> Product details: </Typography>
-
-      //     <Typography variant="body1" color="textSecondary">
-      //       {description}
-      //     </Typography>
-      //   </CardContent>
-
-      //   <div id="buy-container">
-      //     <form
-      //       className="purchase-area"
-      //       noValidate
-      //       autoComplete="off"
-      //       onSubmit={this.handleSubmit}
-      //     >
-      //       <TextField
-      //         select
-      //         name="size"
-      //         onChange={this.handleChange}
-      //         value={this.state.size}
-      //         helperText="Select size"
-      //       >
-      //         SIZES
-      //         <option value="noSize">select size</option>
-      //         <option value="6">6</option>
-      //         <option value="7">7</option>
-      //         <option value="8">8</option>
-      //         <option value="9">9</option>
-      //         <option value="10">10</option>
-      //       </TextField>
-
-      //       <TextField
-      //         select
-      //         name="quantity"
-      //         onChange={this.handleChange}
-      //         value={this.state.quantity}
-      //       >
-      //         <Typography variant="h5" gutterBottom>
-      //           {this.state.quantity}
-      //         </Typography>
-      //       </TextField>
-
-      //       <CardActions>
-      //         <IconButton
-      //           size="small"
-      //           color="primary"
-      //           disabled={disabledDecrease}
-      //           onClick={this.decrease}
-      //         >
-      //           <RemoveCircleOutlineRounded />
-      //         </IconButton>
-
-      //         <Typography variant="body1" color="textSecondary">
-      //           Quantity: {this.state.quantity}
-      //         </Typography>
-
-      //         <IconButton
-      //           size="small"
-      //           color="primary"
-      //           disabled={disabledIncrease}
-      //           onClick={this.increase}
-      //         >
-      //           <AddCircleOutlineRounded />
-      //         </IconButton>
-
-      //         <Button
-      //           id="add-to-cart"
-      //           type="submit"
-      //           size="large"
-      //           startIcon={<ShoppingCart />}
-      //         >
-      //           Add to Cart
-      //         </Button>
-      //       </CardActions>
-      //     </form>
-      //   </div>
-      // </Card>
     )
   }
 }
 
 const mapStateToProps = state => {
-  //need to add shoeId
   return {
     current: state.shoe.current,
     user: state.user,
@@ -291,7 +191,6 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => {
-  //need to dispatch addToUserCart with userId, quantity, shoeId, name, price
   return {
     getCurrentShoe: id => dispatch(getCurrentShoe(id)),
     addToUserCart: (userId, quantity, shoeId) =>
