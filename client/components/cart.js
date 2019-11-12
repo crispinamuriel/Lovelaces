@@ -1,23 +1,42 @@
 /* eslint-disable react/button-has-type */
+/* eslint-disable react/button-has-type */
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {removeFromUserCart, getUserCart} from '../store/order'
 import {me} from '../store'
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableRow,
+  TableHead,
+  Grid,
+  Paper,
+  Toolbar,
+  Typography,
+  Divider,
+  Button,
+  Avatar
+} from '@material-ui/core'
+
+const style = {
+  table: {maxWidth: 750, minWidth: 600, marginTop: 20},
+  paper: {
+    marginBottom: 20,
+    marginTop: 20,
+    maxWidth: 750,
+    minWidth: 600,
+    padding: 25
+  },
+  media: {width: 100, objectFit: 'contain'},
+  pageHeader: {flex: 1}
+}
 
 class Cart extends Component {
   constructor(props) {
     super(props)
     this.state = {}
-  }
-
-  handleSubmit() {
-    // needs same thnks for updating as in single shoe page
-    // redirect to checkout page
-  }
-
-  handleChange() {
-    // update state with changed information
   }
 
   async componentDidMount() {
@@ -42,38 +61,101 @@ class Cart extends Component {
       )
     }
 
-    return cart.orderItems.length ? (
-      <div className="shoe-container">
-        {cart.orderItems.map(orderItem => {
-          const shoe = orderItem.shoe
-          return (
-            <div key={shoe.id}>
-              <Link to={`/all-shoes/${shoe.id}`}>
-                <h3>{shoe.name}</h3>
-                <h4>${(shoe.price / 100).toFixed(2)}</h4>
-                <h4>Quantity: {orderItem.quantity}</h4>
-                <img src={shoe.imageUrl} />
-              </Link>
-              <button
-                onClick={() => {
-                  remove(user.id, orderItem.shoeId)
-                }}
-              >
-                Remove
-              </button>
-            </div>
-          )
-        })}
+    console.log('SHOW ME THE USER', user)
+    console.log('SHOW ME CART TOTAL', cart.total)
+    console.log('SHOW ME THE ORDER ITEMS', cart.orderItems)
+    return (
+      <Grid container justify="center">
+        <Paper style={style.paper} elevation={5}>
+          <Toolbar>
+            {user.firstName ? (
+              <Typography variant="h6" style={style.pageHeader}>
+                {user.firstName}'s Cart
+              </Typography>
+            ) : (
+              <Typography variant="h6" style={style.pageHeader}>
+                Cart{' '}
+              </Typography>
+            )}
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => {
+                this.props.history.push('/all-shoes')
+              }}
+            >
+              Continue Shopping
+            </Button>
+          </Toolbar>
+          <Divider variant="middle" />
 
-        <h3>Total Price: ${(cart.total / 100).toFixed(2)}</h3>
-        <Link to="/checkout/">
-          <button>Checkout</button>
-        </Link>
-      </div>
-    ) : (
-      <div>
-        <h3>There's nothing in your cart right now</h3>
-      </div>
+          {cart.orderItems.length ? (
+            <Table style={style.table}>
+              <TableHead>
+                <TableRow>
+                  <TableCell>Product</TableCell>
+                  <TableCell>Item Price</TableCell>
+                  <TableCell>Quantity</TableCell>
+                  <TableCell> </TableCell>
+                  <TableCell> </TableCell>
+                  <TableCell> </TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {cart.orderItems.map(orderItem => {
+                  const shoe = orderItem.shoe
+                  return (
+                    <TableRow key={shoe.id}>
+                      <TableCell>
+                        <Link to={`/all-shoes/${shoe.id}`}> {shoe.name} </Link>
+                      </TableCell>
+
+                      <TableCell>${(shoe.price / 100).toFixed(2)}</TableCell>
+
+                      <TableCell>{orderItem.quantity}</TableCell>
+
+                      <TableCell> </TableCell>
+                      <TableCell alight="right">
+                        <Link to={`/all-shoes/${shoe.id}`}>
+                          {' '}
+                          <img src={shoe.imageUrl} style={style.media} />
+                        </Link>
+                      </TableCell>
+                      <TableCell>
+                        {' '}
+                        <button
+                          onClick={() => {
+                            remove(user.id, orderItem.shoeId)
+                          }}
+                        >
+                          {' '}
+                          Remove{' '}
+                        </button>{' '}
+                      </TableCell>
+                    </TableRow>
+                  )
+                })}
+
+                <TableRow>
+                  <TableCell colSpan={2}>
+                    {' '}
+                    Total Price: ${(cart.total / 100).toFixed(2)}{' '}
+                  </TableCell>
+                  <TableCell align="right">
+                    <Link to="/checkout/">
+                      <button>Checkout</button>
+                    </Link>
+                  </TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          ) : (
+            <div>
+              <h3>There's nothing in your cart right now</h3>
+            </div>
+          )}
+        </Paper>
+      </Grid>
     )
   }
 }
