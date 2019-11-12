@@ -83,6 +83,7 @@ class Shoe extends Component {
                 onChange={this.handleChange}
                 value={this.state.quantity}
               >
+                <option value="0">Qty:</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
