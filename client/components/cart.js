@@ -94,9 +94,9 @@ class Cart extends Component {
               <TableHead>
                 <TableRow>
                   <TableCell>Product</TableCell>
+                  <TableCell> </TableCell>
                   <TableCell>Item Price</TableCell>
                   <TableCell>Quantity</TableCell>
-                  <TableCell> </TableCell>
                   <TableCell> </TableCell>
                   <TableCell> </TableCell>
                 </TableRow>
@@ -106,6 +106,13 @@ class Cart extends Component {
                   const shoe = orderItem.shoe
                   return (
                     <TableRow key={shoe.id}>
+                      <TableCell alight="right">
+                        <Link to={`/all-shoes/${shoe.id}`}>
+                          {' '}
+                          <img src={shoe.imageUrl} style={style.media} />
+                        </Link>
+                      </TableCell>
+
                       <TableCell>
                         <Link to={`/all-shoes/${shoe.id}`}> {shoe.name} </Link>
                       </TableCell>
@@ -115,12 +122,7 @@ class Cart extends Component {
                       <TableCell>{orderItem.quantity}</TableCell>
 
                       <TableCell> </TableCell>
-                      <TableCell alight="right">
-                        <Link to={`/all-shoes/${shoe.id}`}>
-                          {' '}
-                          <img src={shoe.imageUrl} style={style.media} />
-                        </Link>
-                      </TableCell>
+
                       <TableCell>
                         {' '}
                         <button
