@@ -3,13 +3,18 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
+import {AccountCircle, ShoppingCart} from '@material-ui/icons'
 
-const Navbar = ({handleClick, isLoggedIn}) => (
+const style = {
+  navbar: {display: 'flex', alignItems: 'center'}
+}
+
+const Navbar = ({handleClick, isLoggedIn, showLogOut}) => (
   <div>
     <h1 id="header">LoveLaces</h1>
     <nav id="navbar">
       {isLoggedIn ? (
-        <div>
+        <div style={style.navbar}>
           {/* The navbar will show these links after you log in */}
           <Link to="/">Home</Link>
           <Link to="/all-shoes">All Shoes</Link>
@@ -18,14 +23,18 @@ const Navbar = ({handleClick, isLoggedIn}) => (
           <Link to="/flipflops">Flip Flops</Link>
           <Link to="/heels">Heels</Link>
           <Link to="/flats">Flats</Link>
-          <Link to="/home">Account Details</Link>
-          <Link to="/cart">Cart</Link>
+          <Link to="/home">
+            <AccountCircle />
+          </Link>
+          <Link to="/cart">
+            <ShoppingCart />
+          </Link>
           <a href="#" onClick={handleClick}>
             Logout
           </a>
         </div>
       ) : (
-        <div>
+        <div style={style.navbar}>
           {/* The navbar will show these links before you log in */}
           <Link to="/">Home</Link>
           <Link to="/all-shoes">All Shoes</Link>
@@ -57,7 +66,8 @@ const mapDispatch = dispatch => {
   return {
     handleClick() {
       dispatch(logout())
-    }
+    },
+    showLogOut() {}
   }
 }
 

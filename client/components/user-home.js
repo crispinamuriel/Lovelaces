@@ -2,17 +2,11 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableRow,
-  TableHead,
   Grid,
   Paper,
   Toolbar,
   Typography,
   Divider,
-  Button,
   Card,
   CardContent,
   Avatar
