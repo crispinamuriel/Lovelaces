@@ -30,7 +30,6 @@ const gotCurrentOrder = order => ({type: GOT_CURRENT_ORDER, order})
 
 // THUNK CREATORS
 export const getUserCart = userId => async dispatch => {
-  console.log('in get user cart')
   try {
     const {data} = userId
       ? await axios.get(`/api/orders/user-cart/${userId}`)
