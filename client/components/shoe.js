@@ -14,13 +14,11 @@ import {
   Divider,
   InputLabel,
   Select,
-  MenuItem
+  MenuItem,
+  HomeIcon
 } from '@material-ui/core'
 
 const style = {
-  card: {
-    maxWidth: 500
-  },
   media: {
     objectFit: 'contain',
     width: 325
@@ -43,8 +41,9 @@ const style = {
     minWidth: 350
   },
   breadCrumb: {
-    justifyContent: 'center',
-    flexWrap: 'wrap'
+    border: 0,
+    borderRadius: 3,
+    margin: 20
   },
   input: {minWidth: 120, maxWidth: 120},
   inputLabel: {fontSize: '.75rem'},
@@ -120,7 +119,11 @@ class Shoe extends Component {
     return (
       <Grid container justify="center">
         <Paper style={style.paper}>
-          <Breadcrumbs separator=">" aria-label="breadcrumb">
+          <Breadcrumbs
+            separator=">"
+            icon={<HomeIcon fontSize="small" />}
+            style={style.inputLabel}
+          >
             <Link to="/" color="inherit">
               Homepage
             </Link>
