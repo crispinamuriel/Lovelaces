@@ -4,6 +4,7 @@ import axios from 'axios'
 const GOT_USER_CART = 'GOT_USER_CART'
 const ADDED_TO_USER_CART = 'ADDED_TO_USER_CART'
 const REMOVED_FROM_USER_CART = 'REMOVED_FROM_USER_CART'
+const UPDATED_QUANTITY_IN_CART = 'UPDATED_QUANTITY_IN_CART'
 const PLACED_ORDER = 'PLACED_ORDER'
 const GOT_PREVIOUS_ORDERS = 'GOT_PREVIOUS_ORDERS'
 const GOT_CURRENT_ORDER = 'GOT_CURRENT_ORDER'
@@ -21,6 +22,7 @@ const initialState = {
 const gotUserCart = cart => ({type: GOT_USER_CART, cart})
 const addedToUserCart = cart => ({type: ADDED_TO_USER_CART, cart})
 const removedFromUserCart = cart => ({type: REMOVED_FROM_USER_CART, cart})
+const updatedQuantityInCart = cart => ({type: UPDATED_QUANTITY_IN_CART, cart})
 const placedOrder = cart => ({type: PLACED_ORDER, cart})
 const gotPreviousOrders = previousOrders => ({
   type: GOT_PREVIOUS_ORDERS,
@@ -73,6 +75,23 @@ export const removeFromUserCart = (userId, shoeId) => async dispatch => {
   }
 }
 
+export const updateQuantityInCart = (
+  quantity,
+  orderId,
+  shoeId
+) => async dispatch => {
+  try {
+    const {data} = await axios.patch('/api/orders/user-cart/edit-quantity', {
+      quantity,
+      orderId,
+      shoeId
+    })
+    dispatch(updatedQuantityInCart(data))
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 export const placeOrder = (userId, address) => async dispatch => {
   try {
     const {data} = userId
@@ -110,6 +129,8 @@ export default function(state = initialState, action) {
     case ADDED_TO_USER_CART:
       return {...state, cart: action.cart}
     case REMOVED_FROM_USER_CART:
+      return {...state, cart: action.cart}
+    case UPDATED_QUANTITY_IN_CART:
       return {...state, cart: action.cart}
     case PLACED_ORDER:
       return {...state, cart: action.cart}
