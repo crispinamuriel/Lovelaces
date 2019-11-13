@@ -131,7 +131,27 @@ router.patch('/user-cart/edit-quantity', async (req, res, next) => {
 
       if (!orderItem) return res.sendStatus(204)
       else {
-        const updatedCart = await Order.findOne({
+        let updatedCart = await Order.findOne({
+          where: {userId: req.user.id, status: {[Op.eq]: 'In cart'}},
+          include: {model: OrderItem, include: {model: Shoe}}
+        })
+
+        const newTotal = updatedCart.orderItems.reduce(
+          (total, item) => total + item.shoe.price * item.quantity,
+          0
+        )
+
+        const response = await Order.update(
+          {total: newTotal},
+          {
+            where: {userId: req.user.id, status: {[Op.eq]: 'In cart'}},
+            returning: true,
+            plain: true,
+            include: {model: OrderItem, include: {model: Shoe}}
+          }
+        )
+
+        updatedCart = await Order.findOne({
           where: {userId: req.user.id, status: {[Op.eq]: 'In cart'}},
           include: {model: OrderItem, include: {model: Shoe}}
         })
@@ -146,6 +166,11 @@ router.patch('/user-cart/edit-quantity', async (req, res, next) => {
       )
 
       cart.orderItems[indexOfTargetOrderItem].quantity = quantity
+
+      cart.total = cart.orderItems.reduce(
+        (total, item) => total + item.shoe.price * item.quantity,
+        0
+      )
 
       res.json(cart)
     }
