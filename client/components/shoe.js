@@ -1,9 +1,11 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
 import {getCurrentShoe} from '../store/shoe'
 import {addToUserCart} from '../store/order'
 import {
   Button,
+  Breadcrumbs,
   Typography,
   TextField,
   Grid,
@@ -39,6 +41,10 @@ const style = {
     marginBottom: 20,
     maxWidth: 350,
     minWidth: 350
+  },
+  breadCrumb: {
+    justifyContent: 'center',
+    flexWrap: 'wrap'
   },
   input: {minWidth: 120, maxWidth: 120},
   inputLabel: {fontSize: '.75rem'},
@@ -92,6 +98,14 @@ class Shoe extends Component {
       5: 'Flats'
     }
 
+    const categoryPaths = {
+      1: '/sneakers',
+      2: '/boots-booties',
+      3: '/flipflops',
+      4: '/heels',
+      5: '/flats'
+    }
+
     const {
       inventory,
       description,
@@ -106,6 +120,21 @@ class Shoe extends Component {
     return (
       <Grid container justify="center">
         <Paper style={style.paper}>
+          <Breadcrumbs separator=">" aria-label="breadcrumb">
+            <Link to="/all-shoes" color="inherit">
+              All Shoes
+            </Link>
+            <Link
+              color="inherit"
+              href="/"
+              onClick={() => {
+                this.props.history.push(`${categoryPaths[category]}`)
+              }}
+            >
+              {categories[category]}
+            </Link>
+          </Breadcrumbs>
+
           <Toolbar>
             <Typography variant="h6">{name}</Typography>
           </Toolbar>
