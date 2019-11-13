@@ -35,7 +35,6 @@ const style = {
   media: {width: 100, objectFit: 'contain'},
   pageHeader: {flex: 1}
 }
-
 class Cart extends Component {
   async componentDidMount() {
     // bring the order info, w/ thunk from mapDispatch
@@ -84,7 +83,11 @@ class Cart extends Component {
           </Toolbar>
           <Divider variant="middle" />
 
-          {cart.orderItems ? (
+          {!cart.orderItems || cart.total === 0 ? (
+            <div>
+              <h3>There's nothing in your cart right now</h3>
+            </div>
+          ) : (
             <Table style={style.table}>
               <TableHead>
                 <TableRow>
@@ -116,6 +119,7 @@ class Cart extends Component {
                             <EditCartItem
                               shoe={shoe}
                               quantity={orderItem.quantity}
+                              orderId={cart.id}
                             />
                             <Button
                               onClick={() => {
@@ -150,10 +154,6 @@ class Cart extends Component {
                 </TableRow>
               </TableBody>
             </Table>
-          ) : (
-            <div>
-              <h3>There's nothing in your cart right now</h3>
-            </div>
           )}
         </Paper>
       </Grid>

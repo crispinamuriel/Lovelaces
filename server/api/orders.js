@@ -119,6 +119,40 @@ router.delete('/user-cart/:userId', async (req, res, next) => {
 })
 
 //Route for updating quantities for an item in cart
+router.patch('/user-cart/edit-quantity', async (req, res, next) => {
+  const {quantity, orderId, shoeId} = req.body
+
+  try {
+    if (req.user.id) {
+      const orderItem = await OrderItem.update(
+        {quantity: quantity},
+        {where: {orderId, shoeId}}
+      )
+
+      if (!orderItem) return res.sendStatus(204)
+      else {
+        const updatedCart = await Order.findOne({
+          where: {userId: req.user.id, status: {[Op.eq]: 'In cart'}},
+          include: {model: OrderItem, include: {model: Shoe}}
+        })
+
+        res.json(updatedCart)
+      }
+    } else {
+      const cart = req.session.cart
+
+      const indexOfTargetOrderItem = cart.orderItems.findIndex(
+        orderItem => orderItem.shoeId === shoeId
+      )
+
+      cart.orderItems[indexOfTargetOrderItem].quantity = quantity
+
+      res.json(cart)
+    }
+  } catch (err) {
+    next(err)
+  }
+})
 
 //Route for submitting an order for a logged in user
 router.patch('/user-cart/checkout/:userId', async (req, res, next) => {
@@ -159,6 +193,7 @@ router.post('/guest-cart', async (req, res, next) => {
     const quantity = req.body.quantity
     const shoe = await Shoe.findByPk(req.body.shoeId)
     const cart = req.session.cart
+    console.log(cart)
 
     //If they already have a cart on session, do this
     if (cart) {
