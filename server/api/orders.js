@@ -123,7 +123,7 @@ router.patch('/user-cart/edit-quantity', async (req, res, next) => {
   const {quantity, orderId, shoeId} = req.body
 
   try {
-    if (req.user.id) {
+    if (req.user) {
       const orderItem = await OrderItem.update(
         {quantity: quantity},
         {where: {orderId, shoeId}}
