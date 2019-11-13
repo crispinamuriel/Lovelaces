@@ -58,10 +58,6 @@ class Shoe extends Component {
   async handleSubmit(event) {
     event.preventDefault()
 
-    this.setState({
-      [event.target.name]: event.target.value
-    })
-
     await this.props.addToUserCart(
       this.props.user.id,
       Number(this.state.quantity),
@@ -82,8 +78,6 @@ class Shoe extends Component {
   }
 
   render() {
-    console.log(this.state)
-
     const categories = {
       1: 'Sneakers',
       2: 'Boots & Booties',
@@ -134,7 +128,6 @@ class Shoe extends Component {
                         Size
                       </InputLabel>
                       <Select
-                        labelId="size"
                         value={this.state.size}
                         onChange={this.handleChange}
                         name="size"
@@ -153,7 +146,6 @@ class Shoe extends Component {
                         Quantity
                       </InputLabel>
                       <TextField
-                        labelId="quantity"
                         value={this.state.quantity}
                         onChange={this.handleChange}
                         name="quantity"
