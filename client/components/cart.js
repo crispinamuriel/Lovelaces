@@ -16,8 +16,12 @@ import {
   Typography,
   Divider,
   Button,
-  Avatar
+  Avatar,
+  ButtonGroup,
+  Dialog,
+  DialogTitle
 } from '@material-ui/core'
+import EditCartItem from './edit-cart-item'
 
 const style = {
   table: {maxWidth: 750, minWidth: 600, marginTop: 20},
@@ -33,11 +37,6 @@ const style = {
 }
 
 class Cart extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {}
-  }
-
   async componentDidMount() {
     // bring the order info, w/ thunk from mapDispatch
     await this.props.getUserInfo()
@@ -85,16 +84,14 @@ class Cart extends Component {
           </Toolbar>
           <Divider variant="middle" />
 
-          {cart.orderItems.length ? (
+          {cart.orderItems ? (
             <Table style={style.table}>
               <TableHead>
                 <TableRow>
                   <TableCell>Product</TableCell>
-                  <TableCell> </TableCell>
+                  <TableCell />
                   <TableCell>Item Price</TableCell>
                   <TableCell>Quantity</TableCell>
-                  <TableCell> </TableCell>
-                  <TableCell> </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -104,44 +101,50 @@ class Cart extends Component {
                     <TableRow key={shoe.id}>
                       <TableCell alight="right">
                         <Link to={`/all-shoes/${shoe.id}`}>
-                          {' '}
                           <img src={shoe.imageUrl} style={style.media} />
                         </Link>
                       </TableCell>
 
                       <TableCell>
-                        <Link to={`/all-shoes/${shoe.id}`}> {shoe.name} </Link>
+                        <Link to={`/all-shoes/${shoe.id}`}>
+                          <Typography variant="body1" style={{marginLeft: 5}}>
+                            {shoe.name}
+                          </Typography>
+                        </Link>
+                        <div>
+                          <ButtonGroup variant="text" size="small">
+                            <EditCartItem
+                              shoe={shoe}
+                              quantity={orderItem.quantity}
+                            />
+                            <Button
+                              onClick={() => {
+                                remove(user.id, orderItem.shoeId)
+                              }}
+                            >
+                              Remove
+                            </Button>
+                          </ButtonGroup>
+                        </div>
                       </TableCell>
 
                       <TableCell>${(shoe.price / 100).toFixed(2)}</TableCell>
 
                       <TableCell>{orderItem.quantity}</TableCell>
-
-                      <TableCell> </TableCell>
-
-                      <TableCell>
-                        {' '}
-                        <button
-                          onClick={() => {
-                            remove(user.id, orderItem.shoeId)
-                          }}
-                        >
-                          {' '}
-                          Remove{' '}
-                        </button>{' '}
-                      </TableCell>
                     </TableRow>
                   )
                 })}
 
                 <TableRow>
+                  <TableCell />
                   <TableCell colSpan={2}>
-                    {' '}
-                    Total Price: ${(cart.total / 100).toFixed(2)}{' '}
+                    Total Price: ${(cart.total / 100).toFixed(2)}
                   </TableCell>
-                  <TableCell align="right">
+                  <TableCell>
                     <Link to="/checkout/">
-                      <button>Checkout</button>
+                      <Button variant="contained" color="primary">
+                        Checkout
+                      </Button>
                     </Link>
                   </TableCell>
                 </TableRow>
