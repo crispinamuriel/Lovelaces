@@ -121,6 +121,9 @@ class Shoe extends Component {
       <Grid container justify="center">
         <Paper style={style.paper}>
           <Breadcrumbs separator=">" aria-label="breadcrumb">
+            <Link to="/" color="inherit">
+              Homepage
+            </Link>
             <Link to="/all-shoes" color="inherit">
               All Shoes
             </Link>
