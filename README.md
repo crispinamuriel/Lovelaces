@@ -60,7 +60,7 @@ Github: https://www.linkedin.com/in/sharmin-s/
 
 Github: https://github.com/crispinamuriel
 
-LinkedIn: https://www.linkedin.com/in/crispinamuriel/
+LinkedIn: https://www.linkedin.com/in/crispinarmuriel/
 
 ## Tech Stack
 
